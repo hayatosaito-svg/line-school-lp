@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LINE運用スクール LP ワイヤーフレーム｜エルマーケ</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  .wireframe-container {
+    width: 420px;
+    background: #fff;
+    position: relative;
+  }
+
+  /* === 注釈スタイル === */
+  .annotation {
+    background: #FFF3E0;
+    border-left: 4px solid #FF9800;
+    padding: 8px 12px;
+    margin: 4px 0;
+    font-size: 11px;
+    color: #E65100;
+    line-height: 1.5;
+  }
+  .annotation strong { color: #BF360C; }
+  .annotation.psychology {
+    background: #E8EAF6;
+    border-left-color: #3F51B5;
+    color: #1A237E;
+  }
+  .annotation.psychology strong { color: #0D47A1; }
+  .annotation.dive {
+    background: #E0F2F1;
+    border-left-color: #009688;
+    color: #004D40;
+  }
+  .annotation.dive strong { color: #00695C; }
+  .annotation.ref {
+    background: #FCE4EC;
+    border-left-color: #E91E63;
+    color: #880E4F;
+  }
+  .annotation.ref strong { color: #AD1457; }
+
+  /* === セクション共通 === */
+  section {
+    border-bottom: 3px dashed #E0E0E0;
+    padding: 0;
+    position: relative;
+  }
+  .section-label {
+    background: #212121;
+    color: #fff;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .section-label span {
+    color: #FFD740;
+    font-size: 10px;
+    margin-left: 8px;
+  }
+  .section-content {
+    padding: 16px;
+  }
+
+  /* === プレースホルダー === */
+  .placeholder {
+    background: #ECEFF1;
+    border: 2px dashed #B0BEC5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #546E7A;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .placeholder.image {
+    height: 200px;
+    margin: 8px 0;
+  }
+  .placeholder.image.hero { height: 300px; background: #E3F2FD; border-color: #42A5F5; color: #1565C0; }
+  .placeholder.image.small { height: 120px; }
+  .placeholder.image.graph { height: 240px; background: #F3E5F5; border-color: #9C27B0; color: #4A148C; }
+  .placeholder.badge {
+    display: inline-flex;
+    height: 48px;
+    width: 120px;
+    margin: 4px;
+    background: #FFF8E1;
+    border-color: #FFC107;
+    color: #F57F17;
+    font-size: 11px;
+  }
+  .placeholder.cta {
+    height: 56px;
+    background: #E8F5E9;
+    border-color: #4CAF50;
+    color: #1B5E20;
+    font-size: 16px;
+    border-radius: 28px;
+    margin: 12px 16px;
+    cursor: pointer;
+  }
+  .placeholder.cta.line {
+    background: #00B900;
+    border-color: #00B900;
+    color: #fff;
+    border-style: solid;
+  }
+  .placeholder.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    font-size: 10px;
+  }
+
+  /* === テキストスタイル === */
+  .copy-main {
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.4;
+    color: #1a1a1a;
+    padding: 12px 0;
+  }
+  .copy-sub {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    padding: 4px 0;
+  }
+  .copy-heading {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1a1a1a;
+    padding: 12px 0 8px;
+    border-bottom: 2px solid #333;
+    margin-bottom: 12px;
+  }
+  .copy-body {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.8;
+    padding: 4px 0;
+  }
+  .highlight {
+    background: linear-gradient(transparent 60%, #FFEB3B 60%);
+    font-weight: bold;
+  }
+  .highlight-green {
+    background: linear-gradient(transparent 60%, #A5D6A7 60%);
+    font-weight: bold;
+  }
+  .red { color: #D32F2F; }
+  .green { color: #2E7D32; }
+  .gold { color: #BF8C00; }
+  .big-num {
+    font-size: 42px;
+    font-weight: 900;
+    color: #D32F2F;
+  }
+  .big-num-gold {
+    font-size: 42px;
+    font-weight: 900;
+    color: #BF8C00;
+  }
+
+  /* === 共感カード === */
+  .empathy-card {
+    background: #FAFAFA;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 8px 0;
+  }
+  .empathy-card .icon { font-size: 24px; margin-bottom: 8px; }
+  .empathy-card p { font-size: 14px; color: #555; line-height: 1.6; }
+
+  /* === 比較テーブル === */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin: 12px 0;
+  }
+  .compare-table th, .compare-table td {
+    border: 1px solid #E0E0E0;
+    padding: 8px 6px;
+    text-align: center;
+  }
+  .compare-table th {
+    background: #F5F5F5;
+    font-weight: bold;
+    color: #333;
+  }
+  .compare-table .winner {
+    background: #E8F5E9;
+    font-weight: bold;
+    color: #2E7D32;
+  }
+  .compare-table .ours {
+    background: #E3F2FD;
+    border: 2px solid #1976D2;
+  }
+
+  /* === 口コミカード === */
+  .testimonial-card {
+    background: #FAFAFA;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 12px 0;
+    border: 1px solid #E0E0E0;
+  }
+  .testimonial-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .testimonial-name { font-weight: bold; font-size: 14px; }
+  .testimonial-meta { font-size: 11px; color: #999; }
+  .testimonial-ba {
+    display: flex;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .testimonial-ba > div {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .testimonial-ba .before { background: #FFEBEE; color: #C62828; }
+  .testimonial-ba .after { background: #E8F5E9; color: #2E7D32; }
+
+  /* === ステップカード === */
+  .step-card {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #F0F0F0;
+  }
+  .step-num {
+    width: 36px;
+    height: 36px;
+    background: #1976D2;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+  .step-text h4 { font-size: 14px; margin-bottom: 4px; }
+  .step-text p { font-size: 12px; color: #666; }
+
+  /* === FAQ === */
+  .faq-item {
+    border-bottom: 1px solid #E0E0E0;
+    padding: 12px 0;
+  }
+  .faq-q {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1976D2;
+    margin-bottom: 8px;
+  }
+  .faq-a {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  /* === オファーボックス === */
+  .offer-box {
+    background: #FFF8E1;
+    border: 2px solid #FFC107;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 12px 0;
+    text-align: center;
+  }
+  .price-old {
+    font-size: 18px;
+    color: #999;
+    text-decoration: line-through;
+  }
+  .price-new {
+    font-size: 32px;
+    font-weight: 900;
+    color: #D32F2F;
+  }
+  .price-note {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+  }
+
+  /* === Floating CTA === */
+  .floating-cta {
+    position: fixed;
+    bottom: 0;
+    width: 420px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    padding: 8px 16px;
+    border-top: 1px solid #E0E0E0;
+    z-index: 100;
+    text-align: center;
+  }
+  .floating-cta-btn {
+    display: block;
+    background: #00B900;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 14px;
+    border-radius: 28px;
+    text-decoration: none;
+    text-align: center;
+  }
+  .floating-cta-sub {
+    font-size: 11px;
+    color: #666;
+    margin-top: 4px;
+  }
+
+  /* === バッジバー === */
+  .badge-bar {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* === Social Proof Bar === */
+  .social-proof-bar {
+    display: flex;
+    justify-content: space-around;
+    background: #F5F5F5;
+    padding: 16px 12px;
+  }
+  .sp-item { text-align: center; }
+  .sp-item .sp-num {
+    font-size: 24px;
+    font-weight: 900;
+    color: #1976D2;
+  }
+  .sp-item .sp-label {
+    font-size: 10px;
+    color: #666;
+  }
+
+  /* === 数字カード === */
+  .num-card {
+    background: #fff;
+    border: 2px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 20px;
+    margin: 10px 0;
+    text-align: center;
+  }
+  .num-card .num {
+    font-size: 36px;
+    font-weight: 900;
+  }
+  .num-card .label {
+    font-size: 13px;
+    color: #555;
+    margin-top: 4px;
+  }
+
+  /* === 求人カード === */
+  .job-card {
+    background: #fff;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    padding: 14px;
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .job-card .job-title { font-size: 13px; font-weight: bold; color:#333; }
+  .job-card .job-meta { font-size: 11px; color: #999; }
+  .job-card .job-rate {
+    font-size: 16px;
+    font-weight: 900;
+    color: #D32F2F;
+    white-space: nowrap;
+  }
+
+  /* === カリキュラムカード === */
+  .curriculum-card {
+    background: #fff;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    margin: 8px 0;
+    overflow: hidden;
+  }
+  .curriculum-header {
+    background: #1976D2;
+    color: #fff;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .curriculum-body {
+    padding: 12px 14px;
+  }
+  .curriculum-body li {
+    font-size: 12px;
+    color: #555;
+    margin: 4px 0;
+    list-style: none;
+    padding-left: 16px;
+    position: relative;
+  }
+  .curriculum-body li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #4CAF50;
+    font-weight: bold;
+  }
+
+  /* === アンケート === */
+  .survey-box {
+    background: #F3E5F5;
+    border: 2px solid #9C27B0;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 12px 0;
+  }
+  .survey-q {
+    font-size: 14px;
+    font-weight: bold;
+    color: #4A148C;
+    margin-bottom: 12px;
+  }
+  .survey-option {
+    background: #fff;
+    border: 1px solid #CE93D8;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 6px 0;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  /* === 区切り === */
+  .divider { height: 8px; background: #F5F5F5; }
+
+  /* === タイマー === */
+  .countdown-bar {
+    background: #D32F2F;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .countdown-bar .timer {
+    font-size: 24px;
+    font-family: monospace;
+    letter-spacing: 2px;
+  }
+
+  /* === キャンペーンバナー === */
+  .campaign-banner {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: #fff;
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .campaign-banner .campaign-title {
+    font-size: 20px;
+    font-weight: 900;
+    color: #FFD740;
+    margin-bottom: 8px;
+  }
+  .campaign-banner .campaign-sub {
+    font-size: 13px;
+    color: #B0BEC5;
+  }
+
+  /* === ボトム余白 === */
+  .bottom-spacer { height: 80px; }
+
+  /* === 棒グラフ風 === */
+  .bar-chart { padding: 12px 0; }
+  .bar-row {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+    gap: 8px;
+  }
+  .bar-label {
+    width: 80px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .bar-track {
+    flex: 1;
+    height: 28px;
+    background: #F5F5F5;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .bar-fill-demand {
+    height: 100%;
+    background: #EF5350;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 6px;
+    font-size: 10px;
+    color: #fff;
+    font-weight: bold;
+  }
+  .bar-fill-supply {
+    height: 100%;
+    background: #42A5F5;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 6px;
+    font-size: 10px;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  /* === 特典カード === */
+  .bonus-card {
+    background: #fff;
+    border: 2px solid #FFD740;
+    border-radius: 12px;
+    padding: 14px;
+    margin: 8px 0;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .bonus-num {
+    width: 32px;
+    height: 32px;
+    background: #FFD740;
+    color: #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .bonus-text h4 { font-size: 14px; font-weight: bold; margin-bottom: 2px; }
+  .bonus-text p { font-size: 12px; color: #666; }
+</style>
+</head>
+<body>
+
+<div class="wireframe-container">
+
+  <!-- ============================== -->
+  <!-- FLOATING CTA（常時表示） -->
+  <!-- ============================== -->
+  <div class="floating-cta">
+    <a href="#" class="floating-cta-btn">LINE追加で7大特典をゲットする</a>
+    <div class="floating-cta-sub">無料 / 30秒で完了</div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- SECTION 0: FV（ファーストビュー） -->
+  <!-- ============================== -->
+  <section id="fv">
+    <div class="section-label">SEC 0: FV（ファーストビュー）<span>WSS型: 実績ドカン + 稼げる訴求</span></div>
+
+    <div class="annotation ref">
+      <strong>参考: WSS CLASS構成</strong> — FVは「具体的な数字実績」を最初にドカンと出す。
+      「6ヶ月で平均285万」のようなインパクト数字。<br>
+      <strong>訴求軸:</strong> 稼げる × 需要が高い × AIで楽 の三拍子。
+    </div>
+
+    <!-- カウントダウンタイマー -->
+    <div class="countdown-bar">
+      無料セミナー締切まで
+      <div class="timer">00:23:59:48</div>
+    </div>
+
+    <div class="section-content">
+      <!-- ロゴ -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div class="placeholder" style="width:160px; height:36px; font-size:11px;">エルマーケ ロゴ</div>
+        <span style="background:#D32F2F; color:#fff; padding:3px 10px; border-radius:4px; font-size:10px; font-weight:bold;">受付中</span>
+      </div>
+
+      <!-- KV画像 -->
+      <div class="placeholder image hero">
+        KV画像<br>
+        代表がPC/スマホでLINE管理画面を操作<br>
+        高級感 + 成功者イメージ<br>
+        <small>（WSS CLASS風: 講師写真をドーンと）</small>
+      </div>
+
+      <!-- メインコピー -->
+      <div class="copy-main" style="text-align:center;">
+        LINEで<br>
+        <span class="red" style="font-size:32px;">1億円以上</span>の資産を<br>
+        手に入れた方法、<br>
+        <span style="font-size:16px; color:#555;">あなたにも教えます。</span>
+      </div>
+
+      <!-- サブコピー -->
+      <div class="copy-sub" style="text-align:center; font-weight:bold;">
+        需要爆発 × 供給不足のLINE運用市場で<br>
+        <span class="highlight">月30万円のストック収入</span>を<br>
+        <span class="red">AIを使えば1日たった3時間</span>で手に入れる
+      </div>
+
+      <!-- 信頼バッジ -->
+      <div class="badge-bar">
+        <div class="placeholder badge">受講生<br>◯◯◯名突破</div>
+        <div class="placeholder badge">満足度<br>98.2%</div>
+        <div class="placeholder badge">受講生平均<br>月収+38万</div>
+      </div>
+
+      <!-- CTA -->
+      <div class="placeholder cta line">
+        LINE追加で特典をゲットする →
+      </div>
+      <p style="text-align:center; font-size:11px; color:#999;">※ LINE追加するだけで7大特典を無料プレゼント。30秒で完了。</p>
+    </div>
+
+    <div class="annotation psychology">
+      <strong>心理学:</strong> アンカリング — 「1億円」の数字が最後まで引きずられる。<br>
+      バンドワゴン — 受講生数 + 満足度で権威性。<br>
+      カウントダウン — 緊急性で離脱防止（WSS型）。
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- SECTION 1: キャンペーン / 7大特典 -->
+  <!-- ============================== -->
+  <section id="campaign">
+    <div class="section-label">SEC 1: キャンペーン・特典<span>WSS型: 無料特典で登録率UP</span></div>
+
+    <div class="annotation ref">
+      <strong>WSS型:</strong> FV直下にキャンペーン特典を置いてLINE登録率を上げる。
+      「無料なのにこんなにもらえるの？」で返報性を刺激。
+    </div>
+
+    <div class="campaign-banner">
+      <div class="campaign-title">今だけ無料 / 7大特典プレゼント</div>
+      <div class="campaign-sub">LINE登録するだけで全て受け取れます</div>
+    </div>
+
+    <div class="section-content">
+      <div class="bonus-card">
+        <div class="bonus-num">1</div>
+        <div class="bonus-text">
+          <h4>LINE運用完全ロードマップ（動画60分）</h4>
+          <p>ゼロから月30万までの全ステップ</p>
+        </div>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-num">2</div>
+        <div class="bonus-text">
+          <h4>AI × LINE運用テンプレート集</h4>
+          <p>そのままコピペで使えるプロンプト50選</p>
+        </div>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-num">3</div>
+        <div class="bonus-text">
+          <h4>LINE構築 提案書テンプレート</h4>
+          <p>これだけで案件が取れた実績あり</p>
+        </div>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-num">4</div>
+        <div class="bonus-text">
+          <h4>高単価案件の取り方セミナー録画</h4>
+          <p>時給5,000円案件を獲得する営業術</p>
+        </div>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-num">5</div>
+        <div class="bonus-text">
+          <h4>LINE運用チェックリスト100</h4>
+          <p>プロが現場で使う確認シート</p>
+        </div>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-num">6</div>
+        <div class="bonus-text">
+          <h4>成功事例集（PDF 80ページ）</h4>
+          <p>業種別LINE活用の成功パターン</p>
+        </div>
+      </div>
+      <div class="bonus-card">
+        <div class="bonus-num">7</div>
+        <div class="bonus-text">
+          <h4>個別相談チケット（通常5,000円）</h4>
+          <p>あなた専用のキャリアプランを設計</p>
+        </div>
+      </div>
+
+      <div class="placeholder cta line">
+        LINE追加で7大特典をゲット →
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 2: 時代認識 — なぜ今LINEなのか -->
+  <!-- ============================== -->
+  <section id="era">
+    <div class="section-label">SEC 2: 時代認識 — なぜ今LINEなのか<span>WSS型: 市場の波に乗せる</span></div>
+
+    <div class="annotation dive">
+      <strong>WSS型:</strong> 「今この市場がアツい」と時代の波を認識させる。<br>
+      <strong>訴求:</strong> LINEは需要に対して供給が圧倒的に足りていない = ブルーオーシャン。
+    </div>
+
+    <div class="section-content">
+      <div class="copy-heading" style="text-align:center; border:none; font-size:20px;">
+        知っていますか？<br>
+        <span class="highlight">LINEスキルは今、最も<br>"割がいい"スキル</span>です。
+      </div>
+
+      <!-- 需要 vs 供給グラフ -->
+      <div style="background:#FAFAFA; border-radius:12px; padding:16px; margin:12px 0; border:1px solid #E0E0E0;">
+        <div style="font-size:14px; font-weight:bold; text-align:center; margin-bottom:12px;">
+          Webスキル別「需要 vs 供給」バランス
+        </div>
+
+        <div style="display:flex; gap:12px; margin-bottom:8px; justify-content:center;">
+          <div style="display:flex; align-items:center; gap:4px; font-size:11px;">
+            <span style="width:12px; height:12px; background:#EF5350; border-radius:2px; display:inline-block;"></span> 需要
+          </div>
+          <div style="display:flex; align-items:center; gap:4px; font-size:11px;">
+            <span style="width:12px; height:12px; background:#42A5F5; border-radius:2px; display:inline-block;"></span> 供給（人材数）
+          </div>
+        </div>
+
+        <div class="bar-chart">
+          <!-- Webデザイン -->
+          <div style="font-size:11px; color:#999; margin-bottom:2px;">Webデザイン</div>
+          <div class="bar-row">
+            <div class="bar-label" style="font-size:10px; color:#EF5350;">需要</div>
+            <div class="bar-track"><div class="bar-fill-demand" style="width:60%;">60</div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label" style="font-size:10px; color:#42A5F5;">供給</div>
+            <div class="bar-track"><div class="bar-fill-supply" style="width:85%;">85</div></div>
+          </div>
+
+          <!-- 動画編集 -->
+          <div style="font-size:11px; color:#999; margin-top:8px; margin-bottom:2px;">動画編集</div>
+          <div class="bar-row">
+            <div class="bar-label" style="font-size:10px; color:#EF5350;">需要</div>
+            <div class="bar-track"><div class="bar-fill-demand" style="width:55%;">55</div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label" style="font-size:10px; color:#42A5F5;">供給</div>
+            <div class="bar-track"><div class="bar-fill-supply" style="width:80%;">80</div></div>
+          </div>
+
+          <!-- SNS運用 -->
+          <div style="font-size:11px; color:#999; margin-top:8px; margin-bottom:2px;">SNS運用</div>
+          <div class="bar-row">
+            <div class="bar-label" style="font-size:10px; color:#EF5350;">需要</div>
+            <div class="bar-track"><div class="bar-fill-demand" style="width:65%;">65</div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label" style="font-size:10px; color:#42A5F5;">供給</div>
+            <div class="bar-track"><div class="bar-fill-supply" style="width:70%;">70</div></div>
+          </div>
+
+          <!-- LINE運用（★） -->
+          <div style="font-size:12px; color:#D32F2F; font-weight:bold; margin-top:8px; margin-bottom:2px;">LINE運用 ★</div>
+          <div class="bar-row">
+            <div class="bar-label" style="font-size:10px; color:#EF5350;">需要</div>
+            <div class="bar-track"><div class="bar-fill-demand" style="width:95%;">95</div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label" style="font-size:10px; color:#42A5F5;">供給</div>
+            <div class="bar-track"><div class="bar-fill-supply" style="width:20%;">20</div></div>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:8px;">
+          <span style="font-size:13px; font-weight:bold; color:#D32F2F;">
+            LINE運用 = 需要MAXなのに人材がいない
+          </span>
+        </div>
+      </div>
+
+      <div class="copy-body" style="text-align:center; font-weight:bold; font-size:16px;">
+        つまり、<span class="highlight">今LINE運用を覚えるだけで<br>"引く手あまた"の人材になれる。</span>
+      </div>
+    </div>
+
+    <div class="annotation psychology">
+      <strong>希少性の原理:</strong> 供給が少ない = 参入するだけで価値が高い。<br>
+      <strong>FOMO（機会損失の恐怖）:</strong> 「今やらないと、この波に乗り遅れる」
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 3: 求人証拠 — 時給5,000円以上 -->
+  <!-- ============================== -->
+  <section id="jobs">
+    <div class="section-label">SEC 3: 求人エビデンス<span>社会的証明 × 具体的収入</span></div>
+
+    <div class="annotation">
+      <strong>証拠の力:</strong> 「本当に稼げるの？」への回答。
+      実際の求人データを見せることで信頼性を一撃で上げる。Indeed等のスクショも併用。
+    </div>
+
+    <div class="section-content">
+      <div class="copy-heading" style="text-align:center; border:none;">
+        実際の求人を見てください。<br>
+        <span class="red">時給5,000円以上</span>がゴロゴロ。
+      </div>
+
+      <!-- 求人カード（実際のデータ風） -->
+      <div class="job-card">
+        <div>
+          <div class="job-title">LINE公式アカウント構築・運用代行</div>
+          <div class="job-meta">業務委託 / フルリモート</div>
+        </div>
+        <div class="job-rate">時給5,000円</div>
+      </div>
+
+      <div class="job-card">
+        <div>
+          <div class="job-title">LINE支援事業 マーケ×デザイン担当</div>
+          <div class="job-meta">業務委託 / 渋谷区</div>
+        </div>
+        <div class="job-rate">月給25-80万</div>
+      </div>
+
+      <div class="job-card">
+        <div>
+          <div class="job-title">LINEマーケティング ディレクター</div>
+          <div class="job-meta">業務委託 / フルリモート</div>
+        </div>
+        <div class="job-rate">時給6,000円</div>
+      </div>
+
+      <div class="job-card">
+        <div>
+          <div class="job-title">LINE構築 運用アシスタント（未経験OK）</div>
+          <div class="job-meta">業務委託 / 完全在宅</div>
+        </div>
+        <div class="job-rate">時給3,000-6,000円</div>
+      </div>
+
+      <div class="placeholder image small" style="margin-top:8px;">
+        Indeed / 求人サイトの実際のスクリーンショット<br>
+        <small>（モザイクなし or 一部加工で信頼性UP）</small>
+      </div>
+
+      <div class="copy-body" style="text-align:center; font-weight:bold; padding:16px 0;">
+        しかも、<span class="highlight-green">完全在宅・フルリモート</span>が当たり前。<br>
+        <span style="font-size:12px; color:#666;">通勤ゼロ。パジャマで働ける。</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 4: 収入モデル — 月30万ストック -->
+  <!-- ============================== -->
+  <section id="income">
+    <div class="section-label">SEC 4: 収入モデル<span>★ 稼げる訴求の核心</span></div>
+
+    <div class="annotation dive">
+      <strong>訴求核心:</strong> 月30万のストック収入 × AIで1日3時間 = 「時給換算10,000円超」。
+      この方程式を叩き込む。
+    </div>
+
+    <div class="section-content">
+      <div class="copy-main" style="text-align:center; font-size:20px;">
+        LINE運用代行は<br>
+        <span class="gold">「ストック型ビジネス」</span>
+      </div>
+
+      <div class="copy-body" style="text-align:center;">
+        一度クライアントを獲得すれば<br>
+        <span class="highlight">毎月安定して報酬が入り続ける。</span>
+      </div>
+
+      <!-- 収入シミュレーション -->
+      <div style="background:#1a1a2e; border-radius:16px; padding:20px; margin:16px 0; color:#fff;">
+        <div style="text-align:center; font-size:14px; color:#FFD740; font-weight:bold; margin-bottom:16px;">
+          収入シミュレーション
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
+          <span style="font-size:13px;">クライアント1社あたり</span>
+          <span style="font-size:18px; font-weight:900; color:#FFD740;">月10万円</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
+          <span style="font-size:13px;">3社獲得で</span>
+          <span style="font-size:22px; font-weight:900; color:#4CAF50;">月30万円</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.1);">
+          <span style="font-size:13px;">年間で</span>
+          <span style="font-size:24px; font-weight:900; color:#EF5350;">360万円</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0;">
+          <span style="font-size:13px;">しかも毎月の作業は…</span>
+          <span style="font-size:14px; font-weight:900; color:#fff;">↓</span>
+        </div>
+      </div>
+
+      <!-- AIで3時間 -->
+      <div style="background:#E8F5E9; border-radius:16px; padding:24px; margin:12px 0; text-align:center; border:2px solid #4CAF50;">
+        <div style="font-size:14px; color:#2E7D32; margin-bottom:8px;">AIを使えば、1社あたりの月間作業時間は</div>
+        <div style="font-size:48px; font-weight:900; color:#2E7D32;">約3時間</div>
+        <div style="font-size:12px; color:#555; margin-top:8px;">
+          配信文作成 → AI（15分）<br>
+          リッチメニュー更新 → AI（20分）<br>
+          分析レポート → AI（15分）<br>
+          クライアントMTG（60分）<br>
+          その他運用作業（70分）
+        </div>
+      </div>
+
+      <div class="copy-body" style="text-align:center; font-size:16px; font-weight:bold; padding:12px 0;">
+        3社 × 3時間 = <span class="red">月たった9時間</span>で<br>
+        <span class="highlight">月収30万円。</span><br>
+        <span style="font-size:13px; color:#666;">時給換算 <span class="red" style="font-size:18px;">33,333円</span></span>
+      </div>
+
+      <div class="placeholder cta line">
+        LINE追加で特典をゲットする →
+      </div>
+    </div>
+
+    <div class="annotation psychology">
+      <strong>具体性の法則:</strong> 抽象的な「稼げる」ではなく、時給・月収・年収を全て計算済みで提示。<br>
+      <strong>損失回避:</strong> 「今の働き方を続ける vs この方法」の比較を暗示。
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 5: 悩み共感パート -->
+  <!-- ============================== -->
+  <section id="empathy">
+    <div class="section-label">SEC 5: 悩み共感パート<span>WSS型: ペインポイント5つ</span></div>
+
+    <div class="annotation dive">
+      <strong>WSS型:</strong> 悩みをカード形式で5つ並べる。<br>
+      <strong>DIVE原則7:</strong> 具体的シーンで「そうそう！」を引き出す。
+    </div>
+
+    <div class="section-content">
+      <div class="copy-heading" style="text-align:center; border:none; font-size:18px;">
+        こんな悩み、ありませんか？
+      </div>
+
+      <div class="empathy-card">
+        <p><strong style="color:#D32F2F;">01</strong>　副業したいけど、何をやればいいかわからない。<br>
+        <span style="font-size:12px; color:#999;">動画編集？Webデザイン？…結局どれも中途半端。</span></p>
+      </div>
+
+      <div class="empathy-card">
+        <p><strong style="color:#D32F2F;">02</strong>　スキルを身につけても、案件が取れない。<br>
+        <span style="font-size:12px; color:#999;">クラウドソーシングで消耗。単価が低すぎて割に合わない。</span></p>
+      </div>
+
+      <div class="empathy-card">
+        <p><strong style="color:#D32F2F;">03</strong>　「LINE運用」が儲かるらしいけど、何から始めれば？<br>
+        <span style="font-size:12px; color:#999;">YouTube見ても断片的。体系的に学べる場所がない。</span></p>
+      </div>
+
+      <div class="empathy-card">
+        <p><strong style="color:#D32F2F;">04</strong>　フリーランスの収入が不安定。毎月ゼロからの営業がつらい。<br>
+        <span style="font-size:12px; color:#999;">ストック型の収入源がほしい。</span></p>
+      </div>
+
+      <div class="empathy-card">
+        <p><strong style="color:#D32F2F;">05</strong>　今の会社の給料だけじゃ将来が不安。<br>
+        <span style="font-size:12px; color:#999;">でも独立する勇気もリスクも取れない。副業から始めたい。</span></p>
+      </div>
+
+      <div class="copy-body" style="text-align:center; font-weight:bold; font-size:16px; padding:16px 0;">
+        <span class="highlight">1つでも当てはまるなら、<br>この先を読んでください。</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 6: パラダイムシフト -->
+  <!-- ============================== -->
+  <section id="shift">
+    <div class="section-label">SEC 6: パラダイムシフト<span>★ 「AIで誰でもできる」転換点</span></div>
+
+    <div class="annotation dive">
+      <strong>旧パラダイム:</strong> 「LINE運用は専門スキルが必要で、長い経験がないと稼げない」<br>
+      <strong>新パラダイム:</strong> 「AIを使えば未経験でも3ヶ月でプロレベル。しかも作業は3時間」
+    </div>
+
+    <div class="section-content">
+      <div class="copy-main" style="text-align:center; font-size:18px; line-height:1.8;">
+        <span style="font-size:14px; color:#999;">「LINE運用って難しそう…」</span><br>
+        <span style="font-size:14px; color:#999;">「自分にできるわけない…」</span><br><br>
+        そう思いましたよね？<br><br>
+        <span class="green" style="font-size:22px;">でも、<br>時代が変わりました。</span>
+      </div>
+
+      <div class="placeholder image">
+        Before → After 比較図<br>
+        <small>従来: 専門知識 + 長い経験 + デザインスキル</small><br>
+        <small>現在: AI + テンプレ + 3ヶ月の学習</small>
+      </div>
+
+      <div class="copy-body" style="text-align:center; font-size:15px;">
+        AIが進化したことで、<br>
+        LINE運用の技術的ハードルは<br>
+        <span class="red" style="font-size:20px; font-weight:bold;">劇的に下がりました。</span>
+      </div>
+
+      <div style="background:#F5F5F5; border-radius:12px; padding:16px; margin:16px 0;">
+        <div style="font-size:13px; line-height:2;">
+          <span style="color:#2E7D32; font-weight:bold;">✓</span> リッチメニューのデザイン → <strong>AIが自動生成</strong><br>
+          <span style="color:#2E7D32; font-weight:bold;">✓</span> ステップ配信の文章 → <strong>AIが自動作成</strong><br>
+          <span style="color:#2E7D32; font-weight:bold;">✓</span> 顧客分析・レポート → <strong>AIが自動分析</strong><br>
+          <span style="color:#2E7D32; font-weight:bold;">✓</span> 提案書の作成 → <strong>AIがたたき台を生成</strong>
+        </div>
+      </div>
+
+      <div class="copy-body" style="text-align:center; font-size:16px; font-weight:bold;">
+        あなたがやるのは<br>
+        <span class="highlight">「AIに正しい指示を出すこと」</span>だけ。
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 7: エルマーケ紹介 / 講師紹介 -->
+  <!-- ============================== -->
+  <section id="instructor">
+    <div class="section-label">SEC 7: エルマーケ / 講師紹介<span>WSS型: 権威性ドカン</span></div>
+
+    <div class="annotation ref">
+      <strong>WSS型:</strong> 講師の実績を大きく見せる。「何百億」「何千人」レベルの具体数字。<br>
+      <strong>運営:</strong> エルマーケ — LINEで1億円以上の資産を手に入れた実績。
+    </div>
+
+    <div class="section-content">
+      <div class="copy-heading" style="text-align:center; border:none;">
+        なぜ、エルマーケが教えるのか
+      </div>
+
+      <div class="placeholder image" style="height:180px;">
+        代表プロフィール写真<br>
+        <small>（信頼感 + 成功者のオーラ）</small>
+      </div>
+
+      <div style="text-align:center; padding:12px 0;">
+        <div style="font-size:10px; color:#999;">株式会社エルマーケ 代表</div>
+        <div style="font-size:20px; font-weight:900;">◯◯ ◯◯</div>
+      </div>
+
+      <!-- 実績数字 -->
+      <div style="background:#1a1a2e; border-radius:16px; padding:20px; color:#fff; margin:12px 0;">
+        <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
+          <div style="text-align:center; width:45%;">
+            <div style="font-size:28px; font-weight:900; color:#FFD740;">1億円<span style="font-size:14px;">以上</span></div>
+            <div style="font-size:11px; color:#B0BEC5;">LINEで生み出した資産</div>
+          </div>
+          <div style="text-align:center; width:45%;">
+            <div style="font-size:28px; font-weight:900; color:#FFD740;">◯◯◯社</div>
+            <div style="font-size:11px; color:#B0BEC5;">LINE構築・運用実績</div>
+          </div>
+          <div style="text-align:center; width:45%;">
+            <div style="font-size:28px; font-weight:900; color:#FFD740;">◯◯◯名</div>
+            <div style="font-size:11px; color:#B0BEC5;">スクール受講生</div>
+          </div>
+          <div style="text-align:center; width:45%;">
+            <div style="font-size:28px; font-weight:900; color:#FFD740;">◯◯%</div>
+            <div style="font-size:11px; color:#B0BEC5;">受講生の案件獲得率</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="copy-body" style="line-height:2;">
+        「LINEマーケティングに出会い、人生が変わりました。<br>
+        最初は副業から。たった1つのLINEアカウント運用から始めて、
+        気づけば<span class="highlight">1億円以上の資産</span>を築くことができた。<br><br>
+        この方法は、特別な才能なんていりません。<br>
+        正しいやり方を知って、AIを味方につければ、<br>
+        <strong>誰でも再現できる。</strong><br><br>
+        だから、このスクールを作りました。」
+      </div>
+
+      <div class="placeholder image small">
+        メディア掲載実績 / 登壇実績<br>
+        <small>（ロゴ一覧で権威性UP）</small>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 8: 5つの理由（なぜこのスクールか） -->
+  <!-- ============================== -->
+  <section id="reasons">
+    <div class="section-label">SEC 8: 選ばれる5つの理由<span>WSS型: 差別化セクション</span></div>
+
+    <div class="annotation ref">
+      <strong>WSS型「5つの理由」:</strong> 各項目をアイコン + テキストで視認性重視。
+      他スクールとの違いを明確に。
+    </div>
+
+    <div class="section-content">
+      <div class="copy-heading" style="text-align:center; border:none;">
+        エルマーケが選ばれる<br>
+        <span style="color:#1976D2;">5つの理由</span>
+      </div>
+
+      <!-- 理由1 -->
+      <div style="border:2px solid #E0E0E0; border-radius:16px; padding:20px; margin:12px 0;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+          <div style="background:#E3F2FD; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:900; color:#1976D2; flex-shrink:0;">01</div>
+          <div style="font-size:16px; font-weight:bold;">AI × LINE運用に完全特化</div>
+        </div>
+        <div style="font-size:13px; color:#555; line-height:1.6;">
+          一般のWebマーケスクールではLINEは「一部」。当スクールはLINE × AIに完全特化。だから密度が違う。
+        </div>
+      </div>
+
+      <!-- 理由2 -->
+      <div style="border:2px solid #E0E0E0; border-radius:16px; padding:20px; margin:12px 0;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+          <div style="background:#E8F5E9; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:900; color:#2E7D32; flex-shrink:0;">02</div>
+          <div style="font-size:16px; font-weight:bold;">実績1億円の現役プレイヤーが直接指導</div>
+        </div>
+        <div style="font-size:13px; color:#555; line-height:1.6;">
+          「教えるだけの人」ではなく、今もLINEで億を稼ぎ続けている現役が教える。机上の空論ゼロ。
+        </div>
+      </div>
+
+      <!-- 理由3 -->
+      <div style="border:2px solid #E0E0E0; border-radius:16px; padding:20px; margin:12px 0;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+          <div style="background:#FFF3E0; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:900; color:#E65100; flex-shrink:0;">03</div>
+          <div style="font-size:16px; font-weight:bold;">AIテンプレで作業時間を1/10に</div>
+        </div>
+        <div style="font-size:13px; color:#555; line-height:1.6;">
+          独自のAIプロンプト集 + テンプレートで、通常30時間の作業が3時間に。だから副業でも無理なく続けられる。
+        </div>
+      </div>
+
+      <!-- 理由4 -->
+      <div style="border:2px solid #E0E0E0; border-radius:16px; padding:20px; margin:12px 0;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+          <div style="background:#FCE4EC; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:900; color:#C62828; flex-shrink:0;">04</div>
+          <div style="font-size:16px; font-weight:bold;">案件獲得まで徹底サポート</div>
+        </div>
+        <div style="font-size:13px; color:#555; line-height:1.6;">
+          スキルだけ教えて終わりじゃない。提案書テンプレ、営業手法、料金設定まで。実際に稼ぐところまで伴走。
+        </div>
+      </div>
+
+      <!-- 理由5 -->
+      <div style="border:2px solid #E0E0E0; border-radius:16px; padding:20px; margin:12px 0;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+          <div style="background:#E8EAF6; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:900; color:#3F51B5; flex-shrink:0;">05</div>
+          <div style="font-size:16px; font-weight:bold;">ストック収入で人生を変える設計</div>
+        </div>
+        <div style="font-size:13px; color:#555; line-height:1.6;">
+          単発案件ではなく「月額運用」を獲得する戦略を教える。1社10万 × 3社 = 月30万が自動で入り続ける。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 9: 受講生実績 / ケーススタディ -->
+  <!-- ============================== -->
+  <section id="testimonials">
+    <div class="section-label">SEC 9: 受講生実績<span>WSS型: ケーススタディ</span></div>
+
+    <div class="annotation ref">
+      <strong>WSS型:</strong> Before→Afterをスワイプ形式で複数表示。
+      「個人の感想です」免責表示あり。<br>
+      <strong>収入にフォーカス:</strong> 精神的変化よりも「月収いくら→いくら」の数字を前面に。
+    </div>
+
+    <div class="section-content">
+      <div class="copy-heading" style="text-align:center; border:none;">
+        受講生の成果（一部）
+      </div>
+
+      <!-- 受講生1 -->
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="placeholder avatar">顔写真</div>
+          <div>
+            <div class="testimonial-name">A.Sさん（32歳・女性）</div>
+            <div class="testimonial-meta">元Webデザイナー → LINE運用フリーランス</div>
+          </div>
+        </div>
+        <div class="testimonial-ba">
+          <div class="before">Before<br>フリーランス<br>月収25万で不安定</div>
+          <div class="after">After<br><strong style="font-size:18px;">月収72万</strong><br>ストック収入で安定</div>
+        </div>
+        <p style="font-size:13px; color:#555; line-height:1.6;">
+          "LINE運用を追加しただけで単価が3倍に。しかも<span class="highlight">毎月自動で入る</span>から精神的にも安定。AIのおかげで作業も1日2時間程度です。"
+        </p>
+      </div>
+
+      <!-- 受講生2 -->
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="placeholder avatar">顔写真</div>
+          <div>
+            <div class="testimonial-name">K.Tさん（28歳・男性）</div>
+            <div class="testimonial-meta">会社員 → 副業でLINE運用代行</div>
+          </div>
+        </div>
+        <div class="testimonial-ba">
+          <div class="before">Before<br>副業収入0円<br>残業月40時間</div>
+          <div class="after">After<br><strong style="font-size:18px;">副業月収35万</strong><br>本業は定時退社</div>
+        </div>
+        <p style="font-size:13px; color:#555; line-height:1.6;">
+          "完全未経験から3ヶ月。<span class="highlight">AIに指示出すだけでプロレベルの成果物が出る</span>ので、クライアントにも「こんなに早いんですか？」と驚かれます。"
+        </p>
+      </div>
+
+      <!-- 受講生3 -->
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="placeholder avatar">顔写真</div>
+          <div>
+            <div class="testimonial-name">R.Mさん（41歳・女性）</div>
+            <div class="testimonial-meta">主婦 → 在宅LINE運用ワーカー</div>
+          </div>
+        </div>
+        <div class="testimonial-ba">
+          <div class="before">Before<br>パート月収8万<br>子育てで時間なし</div>
+          <div class="after">After<br><strong style="font-size:18px;">在宅で月収28万</strong><br>子どもとの時間も確保</div>
+        </div>
+        <p style="font-size:13px; color:#555; line-height:1.6;">
+          "子供が寝た後の2-3時間だけ。パートの3倍以上稼げてるのに<span class="highlight">通勤ゼロ</span>。もっと早く知りたかった。"
+        </p>
+      </div>
+
+      <!-- 受講生4 -->
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="placeholder avatar">顔写真</div>
+          <div>
+            <div class="testimonial-name">T.Hさん（36歳・男性）</div>
+            <div class="testimonial-meta">営業マン → LINE運用で独立</div>
+          </div>
+        </div>
+        <div class="testimonial-ba">
+          <div class="before">Before<br>年収420万<br>毎日終電</div>
+          <div class="after">After<br><strong style="font-size:18px;">年収960万</strong><br>週4勤務・自由</div>
+        </div>
+        <p style="font-size:13px; color:#555; line-height:1.6;">
+          "営業力 × LINE運用が最強の組み合わせでした。<span class="highlight">8社のストック案件で月80万</span>。会社員に戻る理由がない。"
+        </p>
+      </div>
+
+      <p style="font-size:10px; color:#999; text-align:center;">※ 個人の感想であり、成果を保証するものではありません。</p>
+
+      <div class="placeholder cta line">
+        LINE追加で特典をゲットする →
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 10: カリキュラム / 講義チラ見せ -->
+  <!-- ============================== -->
+  <section id="curriculum">
+    <div class="section-label">SEC 10: カリキュラム<span>WSS型: 講義チラ見せ</span></div>
+
+    <div class="annotation ref">
+      <strong>WSS型:</strong> 400本以上の動画で「量」を見せる + チラ見せで質を証明。<br>
+      <strong>教育系プリセット:</strong> 「これを学ぶとこう稼げる」の対応を明示。
+    </div>
+
+    <div class="section-content">
+      <div class="copy-heading" style="text-align:center; border:none;">
+        <span style="font-size:14px; color:#999;">全◯◯本以上の動画講義</span><br>
+        未経験→月30万の<br>完全ロードマップ
+      </div>
+
+      <div class="curriculum-card">
+        <div class="curriculum-header">STEP 1: LINE基礎マスター（1-2週目）</div>
+        <div class="curriculum-body">
+          <ul>
+            <li>LINE公式アカウントの開設と初期設定</li>
+            <li>あいさつメッセージの最適化</li>
+            <li>友だち追加経路の設計</li>
+            <li>基本配信の設計と実践</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="curriculum-card">
+        <div class="curriculum-header">STEP 2: AI × LINE運用術（3-4週目）</div>
+        <div class="curriculum-body">
+          <ul>
+            <li>AIでリッチメニューを自動生成する方法</li>
+            <li>AIで配信文を量産するプロンプト術</li>
+            <li>AIで顧客分析・レポートを自動作成</li>
+            <li>作業時間を1/10にするAIワークフロー</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="curriculum-card">
+        <div class="curriculum-header">STEP 3: ファネル設計・自動化（5-6週目）</div>
+        <div class="curriculum-body">
+          <ul>
+            <li>LINEマーケティングファネルの全体設計</li>
+            <li>ステップ配信のシナリオ設計</li>
+            <li>セグメント配信とタグ管理</li>
+            <li>Lステップ / エルメの使い分け</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="curriculum-card">
+        <div class="curriculum-header">STEP 4: 高単価案件の取り方（7-8週目）</div>
+        <div class="curriculum-body">
+          <ul>
+            <li>時給5,000円案件の見つけ方</li>
+            <li>提案書テンプレートの使い方</li>
+            <li>料金設定と見積もりの作り方</li>
+            <li>月額契約（ストック）の提案術</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="curriculum-card">
+        <div class="curriculum-header">STEP 5: 月30万→100万へスケール（9-12週目）</div>
+        <div class="curriculum-body">
+          <ul>
+            <li>複数クライアントの効率管理</li>
+            <li>単価アップ交渉術</li>
+            <li>チーム化・外注化のノウハウ</li>
+            <li>LINE運用事業の仕組み化</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="placeholder image" style="height:160px;">
+        講義動画のスクリーンショット / チラ見せ<br>
+        <small>（WSS型: 実際の講義画面でクオリティ証明）</small>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 11: 他社比較テーブル -->
+  <!-- ============================== -->
+  <section id="comparison">
+    <div class="section-label">SEC 11: 他社比較<span>選定基準の提示</span></div>
+
+    <div class="section-content">
+      <div class="copy-heading" style="text-align:center; border:none;">
+        スクール選びで失敗しないために
+      </div>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>独学<br><small>(YouTube)</small></th>
+            <th>一般<br><small>Webスクール</small></th>
+            <th class="ours">エルマーケ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>LINE特化</strong></td>
+            <td>△ 断片的</td>
+            <td>△ 一部</td>
+            <td class="ours winner">◎ 完全特化</td>
+          </tr>
+          <tr>
+            <td><strong>AI活用</strong></td>
+            <td>×</td>
+            <td>△</td>
+            <td class="ours winner">◎ 全面活用</td>
+          </tr>
+          <tr>
+            <td><strong>作業効率</strong></td>
+            <td>× 全手動</td>
+            <td>△</td>
+            <td class="ours winner">◎ AI自動化</td>
+          </tr>
+          <tr>
+            <td><strong>案件獲得</strong></td>
+            <td>× なし</td>
+            <td>△</td>
+            <td class="ours winner">◎ 徹底支援</td>
+          </tr>
+          <tr>
+            <td><strong>収入モデル</strong></td>
+            <td>× 不明</td>
+            <td>△ 単発</td>
+            <td class="ours winner">◎ ストック型</td>
+          </tr>
+          <tr>
+            <td><strong>講師実績</strong></td>
+            <td>× 不明</td>
+            <td>○</td>
+            <td class="ours winner">◎ 1億円超</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 12: アンケート（後半配置） -->
+  <!-- ============================== -->
+  <section id="survey">
+    <div class="section-label">SEC 12: アンケート<span>MCVR向上 + 返報性</span></div>
+
+    <div class="annotation">
+      <strong>後半アンケ:</strong> 教育してから質問。アクション→特典の流れで返報性。
+    </div>
+
+    <div class="section-content">
+      <div class="copy-heading" style="text-align:center; border:none; font-size:16px;">
+        30秒で完了！<br>あなたに最適なプランを診断
+      </div>
+
+      <div class="survey-box">
+        <div class="survey-q">Q1. 今の一番の悩みは？</div>
+        <div class="survey-option">副業で安定収入がほしい</div>
+        <div class="survey-option">今のスキルでは将来が不安</div>
+        <div class="survey-option">フリーランスだが収入が不安定</div>
+        <div class="survey-option">LINE運用に興味あるが学び方がわからない</div>
+      </div>
+
+      <div class="survey-box">
+        <div class="survey-q">Q2. 目標の月収は？</div>
+        <div class="survey-option">まずは月10-20万の副業収入</div>
+        <div class="survey-option">月30万で生活を安定させたい</div>
+        <div class="survey-option">月50万以上で独立したい</div>
+        <div class="survey-option">月100万を目指したい</div>
+      </div>
+
+      <div class="survey-box">
+        <div class="survey-q">Q3. このスクールで魅力的だった点は？</div>
+        <div class="survey-option">AIで作業が3時間になる点</div>
+        <div class="survey-option">ストック型の収入モデル</div>
+        <div class="survey-option">実績1億円の講師から学べる点</div>
+        <div class="survey-option">案件獲得までサポートしてくれる点</div>
+      </div>
+
+      <div class="survey-box">
+        <div class="survey-q">Q4. 無料セミナーに参加したいですか？</div>
+        <div class="survey-option" style="background:#E8F5E9; border-color:#4CAF50; font-weight:bold;">はい、参加したい！</div>
+        <div class="survey-option">もう少し詳しく知りたい</div>
+      </div>
+
+      <div class="placeholder cta line" style="margin-top:16px;">
+        LINE追加で特典をゲットする →
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 13: 申込フロー -->
+  <!-- ============================== -->
+  <section id="flow">
+    <div class="section-label">SEC 13: 申込フロー<span>WSS型: ステップ化で不安軽減</span></div>
+
+    <div class="section-content">
+      <div class="copy-heading" style="text-align:center; border:none;">
+        参加までの流れ
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h4>LINEに登録（30秒）</h4>
+          <p>ボタンをタップしてLINE友だち追加するだけ</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h4>7大特典を受け取る</h4>
+          <p>登録直後に全特典が届きます</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h4>無料セミナーに参加</h4>
+          <p>LINE運用 × AIの具体的なノウハウを公開</p>
+        </div>
+      </div>
+
+      <div class="step-card" style="border:none;">
+        <div class="step-num" style="background:#4CAF50;">4</div>
+        <div class="step-text">
+          <h4>スクールに申し込み（希望者のみ）</h4>
+          <p>無理な勧誘は一切ありません</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 14: 保証 -->
+  <!-- ============================== -->
+  <section id="guarantee">
+    <div class="section-label">SEC 14: 保証<span>WSS型: リスクリバーサル</span></div>
+
+    <div class="section-content">
+      <div style="background:#E8F5E9; border-radius:16px; padding:24px; text-align:center; border:3px solid #4CAF50;">
+        <div style="font-size:14px; color:#2E7D32; margin-bottom:8px;">安心の</div>
+        <div style="font-size:24px; font-weight:900; color:#2E7D32;">全額返金保証</div>
+        <div style="font-size:13px; color:#555; margin-top:12px; line-height:1.8;">
+          カリキュラム通りに◯日間実践して<br>
+          成果が出なかった場合、全額返金いたします。<br>
+          <strong>あなたにリスクは一切ありません。</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 15: FAQ -->
+  <!-- ============================== -->
+  <section id="faq">
+    <div class="section-label">SEC 15: FAQ<span>マッチングリスク対策</span></div>
+
+    <div class="section-content">
+      <div class="copy-heading" style="text-align:center; border:none;">
+        よくある質問
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Q. 完全未経験でも稼げるようになりますか？</div>
+        <div class="faq-a">はい。AIがあなたの「スキル不足」をカバーします。受講生の◯◯%が完全未経験からスタートし、3ヶ月以内に初案件を獲得しています。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Q. 本当に1日3時間で月30万稼げるんですか？</div>
+        <div class="faq-a">はい。AIテンプレートを使えば1社あたりの月間作業は約3時間。3社獲得で月30万・月9時間です。実際に受講生が実現しています。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Q. 副業でもできますか？</div>
+        <div class="faq-a">もちろんです。受講生の約6割が会社員の副業スタートです。AIで作業効率化できるので、平日夜や週末の数時間で十分対応できます。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Q. 案件はどうやって取るんですか？</div>
+        <div class="faq-a">提案書テンプレート、営業トークスクリプト、案件獲得の具体的な手法をカリキュラムに含めています。求人サイトには時給5,000円以上の案件が多数あります。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Q. 他のスクールとの違いは？</div>
+        <div class="faq-a">「AI × LINE × 案件獲得」の3つを全てカバーしているのは当スクールだけです。さらに講師はLINEで1億円以上の実績がある現役プレイヤーです。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">Q. 途中で辞めたくなったら？</div>
+        <div class="faq-a">全額返金保証がございます。カリキュラム通りに実践して成果が出なかった場合、全額お返しします。</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============================== -->
+  <!-- SECTION 16: 最終CTA -->
+  <!-- ============================== -->
+  <section id="final-cta">
+    <div class="section-label">SEC 16: 最終CTA<span>★ クロージング</span></div>
+
+    <div class="annotation dive">
+      <strong>WSS型クロージング:</strong> 緊急性 + リスクリバーサル + 未来のシーン喚起。<br>
+      <strong>DIVE原則7:</strong> 「3ヶ月後の理想の自分」を最後に描かせる。
+    </div>
+
+    <div class="section-content">
+      <!-- シーン喚起 -->
+      <div class="copy-main" style="text-align:center; font-size:18px; line-height:1.8;">
+        3ヶ月後、あなたは<br>
+        <span class="green">毎月30万円が<br>自動で振り込まれる生活</span>を<br>
+        手に入れている。
+      </div>
+
+      <div class="placeholder image">
+        理想のライフスタイル画像<br>
+        <small>（カフェでPC作業 / 家族との時間 / 旅先で仕事）</small>
+      </div>
+
+      <div class="copy-body" style="text-align:center; line-height:2;">
+        通勤もない。上司もいない。<br>
+        好きな場所で、好きな時間に。<br>
+        <strong>AIとLINEだけで、<br>月30万のストック収入。</strong>
+      </div>
+
+      <div class="copy-body" style="text-align:center; font-size:15px;">
+        必要なのは「才能」じゃない。<br>
+        <span class="highlight">「正しい方法」と「最初の一歩」</span>だけです。
+      </div>
+
+      <!-- 緊急性 -->
+      <div style="background:#FFEBEE; border-radius:12px; padding:16px; margin:16px 0; text-align:center; border:2px solid #EF5350;">
+        <div style="font-size:16px; font-weight:bold; color:#C62828;">
+          毎月先着◯名様限定
+        </div>
+        <div style="font-size:12px; color:#555; margin-top:4px;">
+          少人数制のため、定員に達し次第締め切ります。<br>
+          <strong>次回の募集は未定です。</strong>
+        </div>
+      </div>
+
+      <!-- リスクリバーサル -->
+      <div style="text-align:center; font-size:13px; color:#2E7D32; font-weight:bold; margin:12px 0;">
+        全額返金保証あり / 無料セミナーだけでもOK / 7大特典つき
+      </div>
+
+      <!-- 最終CTA -->
+      <div class="placeholder cta line" style="font-size:18px; height:64px;">
+        LINE追加で特典をゲットする →
+      </div>
+      <p style="text-align:center; font-size:11px; color:#999;">
+        LINE追加するだけ / 無料 / 30秒で完了
+      </p>
+
+      <!-- 追伸 -->
+      <div style="background:#F5F5F5; border-radius:12px; padding:16px; margin:16px 0;">
+        <div style="font-size:14px; font-weight:bold; margin-bottom:8px;">追伸:</div>
+        <div style="font-size:13px; color:#555; line-height:1.8;">
+          ここまで読んでくれたあなたは、本気で人生を変えたいと思っているはず。
+          LINE運用市場は今、需要が爆発しているのに人材が足りていない。このチャンスは長くは続きません。<br><br>
+          半年後、「あの時やっておけばよかった…」と後悔するか。
+          「あの時一歩踏み出して本当によかった」と笑っているか。<br><br>
+          <strong>その分岐点が、今です。</strong><br>
+          まずは無料セミナーで、あなたの目で確かめてください。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ボトム余白（Floating CTA分） -->
+  <div class="bottom-spacer"></div>
+
+</div><!-- /wireframe-container -->
+
+</body>
+</html>
