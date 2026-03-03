@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code セットアップガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans JP", -apple-system, sans-serif;
+    background: #f5f5f5;
+    color: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #1a1a2e, #2a2a4e);
+    padding: 40px 24px;
+    text-align: center;
+    color: #fff;
+  }
+  .header h1 {
+    font-size: 24px;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+  .header p {
+    font-size: 13px;
+    color: #8899aa;
+  }
+
+  /* Steps */
+  .steps { padding: 0 24px 32px; }
+
+  .step {
+    padding: 28px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .step:last-child { border-bottom: none; }
+
+  .step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #6c5ce7, #a855f7);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: 900;
+    margin-bottom: 12px;
+    box-shadow: 0 3px 10px rgba(108,92,231,0.3);
+  }
+
+  .step h2 {
+    font-size: 18px;
+    font-weight: 900;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .step p {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 8px;
+  }
+
+  .step a {
+    color: #6c5ce7;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .step a:hover { text-decoration: underline; }
+
+  /* Link button */
+  .link-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #6c5ce7, #a855f7);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    margin: 8px 0;
+    box-shadow: 0 4px 14px rgba(108,92,231,0.3);
+  }
+
+  /* Code block */
+  .code-block {
+    background: #1a1a2e;
+    color: #e0e0e0;
+    padding: 16px 18px;
+    border-radius: 12px;
+    font-family: "SF Mono", "Menlo", monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 12px 0;
+    position: relative;
+    overflow-x: auto;
+    word-break: break-all;
+  }
+  .code-block .copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: "Noto Sans JP", sans-serif;
+  }
+  .code-block .copy-btn:hover {
+    background: rgba(255,255,255,0.25);
+  }
+
+  /* App badge */
+  .app-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f0f0f0;
+    padding: 10px 16px;
+    border-radius: 12px;
+    margin: 8px 0;
+  }
+  .app-badge .icon {
+    width: 36px;
+    height: 36px;
+    background: #1a1a2e;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .app-badge .name {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .app-badge .sub {
+    font-size: 11px;
+    color: #999;
+  }
+
+  /* Tip box */
+  .tip {
+    background: #fff8e1;
+    border: 1.5px solid #ffd54f;
+    border-radius: 12px;
+    padding: 16px;
+    margin: 16px 0;
+  }
+  .tip h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #bf8c00;
+    margin-bottom: 6px;
+  }
+  .tip p {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 0;
+  }
+
+  /* Arrow */
+  .arrow {
+    text-align: center;
+    font-size: 24px;
+    color: #ccc;
+    padding: 8px 0;
+  }
+
+  /* Keyboard shortcut */
+  kbd {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-family: "SF Mono", "Menlo", monospace;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  /* Success box */
+  .success-box {
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    border: 2px solid #4caf50;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin: 12px 0;
+  }
+  .success-box .emoji { font-size: 32px; margin-bottom: 8px; }
+  .success-box p {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-bottom: 0;
+  }
+  .success-box .sub {
+    font-size: 13px;
+    color: #555;
+    font-weight: 400;
+    margin-top: 4px;
+  }
+
+  /* Ref */
+  .ref {
+    text-align: center;
+    padding: 20px 24px;
+    font-size: 11px;
+    color: #999;
+    border-top: 1px solid #eee;
+  }
+  .ref a {
+    color: #6c5ce7;
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h1>Claude Code セットアップガイド</h1>
+    <p>所要時間：約5分</p>
+  </div>
+
+  <div class="steps">
+
+    <!-- STEP 1 -->
+    <div class="step">
+      <div class="step-badge">1</div>
+      <h2>Claude「Pro」に契約する</h2>
+      <p>以下のリンクから、<strong>真ん中のプラン</strong>（Pro）を選択して契約してください。</p>
+      <a href="https://claude.ai/ja-jp/pricing" class="link-btn" target="_blank">Claude 料金ページを開く</a>
+    </div>
+
+    <div class="arrow">&darr;</div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <div class="step-badge">2</div>
+      <h2>「ターミナル.app」を開く</h2>
+
+      <div class="app-badge">
+        <div class="icon">&#x1F4BB;</div>
+        <div>
+          <div class="name">ターミナル</div>
+          <div class="sub">Terminal.app</div>
+        </div>
+      </div>
+
+      <p>見つからない場合は <kbd>&#8984;</kbd> + <kbd>Space</kbd> を押して<br>「<strong>ターミナル</strong>」と入力すると出てきます。</p>
+
+      <p>開くと黒い画面（またはグレーの画面）が出ます。<br>そこにコマンドを入力していきます。</p>
+    </div>
+
+    <div class="arrow">&darr;</div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <div class="step-badge">3</div>
+      <h2>コマンドを入力してインストール</h2>
+
+      <p><strong>1つ目：</strong>以下をコピーして、ターミナルに貼り付けて <kbd>Enter</kbd></p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+        curl -fsSL https://claude.ai/install.sh | bash
+      </div>
+
+      <div class="arrow">&darr;</div>
+
+      <p><strong>2つ目：</strong>以下をコピーして、ターミナルに貼り付けて <kbd>Enter</kbd></p>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+        echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+      </div>
+
+      <div class="arrow">&darr;</div>
+
+      <p><strong>auth~~</strong> みたいなのが表示されます（認証です）。<br>矢印キーで選んで <kbd>Enter</kbd>。</p>
+      <p>自動でWebが開くので、<strong>自分のClaudeアカウント</strong>を選択して進んでください。</p>
+    </div>
+
+    <div class="arrow">&darr;</div>
+
+    <!-- DONE -->
+    <div class="step">
+      <div class="step-badge" style="background:linear-gradient(135deg,#4caf50,#2e7d32);">&#10003;</div>
+      <h2>設定完了！</h2>
+
+      <div class="success-box">
+        <div class="emoji">&#x1F389;</div>
+        <p>セットアップ完了</p>
+        <p class="sub">以降、ターミナルで「claude」と入力するだけで<br>Claude Codeが起動します</p>
+      </div>
+
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">コピー</button>
+        claude
+      </div>
+    </div>
+
+    <!-- TIPS -->
+    <div class="tip">
+      <h3>「Password:」と表示されたら</h3>
+      <p>PCのパスワードを入力してください。<br><strong>何も表示されませんが</strong>、そのまま入力して <kbd>Enter</kbd> で大丈夫です。</p>
+    </div>
+
+    <div class="tip">
+      <h3>「Press RETURN/ENTER to continue...」と表示されたら</h3>
+      <p>そのまま <kbd>Enter</kbd> を押してください。</p>
+    </div>
+
+  </div>
+
+  <div class="ref">
+    参照：<a href="https://x.com/mercarioji/status/2021833566506954800" target="_blank">@mercarioji のポスト</a>
+  </div>
+
+</div>
+
+<script>
+function copyCode(btn) {
+  const block = btn.parentElement;
+  const text = block.textContent.replace('コピー', '').trim();
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = 'コピー済み';
+    setTimeout(function() { btn.textContent = 'コピー'; }, 2000);
+  });
+}
+</script>
+
+</body>
+</html>
