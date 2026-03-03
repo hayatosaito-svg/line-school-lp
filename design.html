@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>エルマーケ｜AI × LINE運用スクール</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #06C755;
+    --primary-dark: #05a849;
+    --primary-light: #e6f9ee;
+    --accent: #FFB800;
+    --accent-light: #FFF8E1;
+    --navy: #0B1929;
+    --navy-mid: #132D4A;
+    --navy-light: #1B3F63;
+    --red: #E8384F;
+    --red-light: #FFF0F1;
+    --blue: #2563EB;
+    --blue-light: #EFF6FF;
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --text-tertiary: #9CA3AF;
+    --bg-white: #FFFFFF;
+    --bg-light: #F8FAFB;
+    --bg-warm: #FFFCF5;
+    --border: #E5E7EB;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+    --shadow-xl: 0 16px 48px rgba(0,0,0,0.12);
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+    --r-xl: 24px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #EAECF0;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+
+  .lp {
+    width: 100%;
+    max-width: 430px;
+    background: var(--bg-white);
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* ===== COUNTDOWN ===== */
+  .countdown {
+    background: linear-gradient(90deg, #C62828, var(--red));
+    color: #fff;
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .countdown .time {
+    display: inline-block;
+    font-family: "SF Mono","Menlo",monospace;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* ===== HEADER ===== */
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background: var(--bg-white);
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .logo {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--primary); }
+  .live-badge {
+    background: var(--red);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    animation: livePulse 2s infinite;
+  }
+  @keyframes livePulse { 0%,100%{opacity:1;} 50%{opacity:.6;} }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    background: linear-gradient(170deg, var(--navy) 0%, var(--navy-mid) 40%, var(--navy-light) 100%);
+    padding: 40px 24px 48px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -30%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(6,199,85,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    bottom: -20%;
+    left: -20%;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255,184,0,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-label {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 1.5px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-photo {
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    border: 3px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-photo-inner {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.4);
+    font-size: 11px;
+    gap: 4px;
+  }
+  .hero-photo-inner .icon { font-size: 36px; }
+  .hero h1 {
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.6;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 16px;
+  }
+  .hero h1 .accent {
+    display: block;
+    font-size: 38px;
+    color: var(--accent);
+    line-height: 1.3;
+    text-shadow: 0 2px 20px rgba(255,184,0,0.3);
+  }
+  .hero h1 .sub {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.6);
+    margin-top: 8px;
+  }
+  .hero-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.9;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-desc strong { color: #fff; }
+  .hero-desc .hl {
+    background: linear-gradient(transparent 50%, rgba(255,184,0,0.35) 50%);
+    color: #fff;
+    font-weight: 700;
+  }
+  .hero-desc .red { color: #FF6B6B; font-weight: 700; }
+
+  /* ===== BADGE BAR ===== */
+  .badge-bar {
+    display: flex;
+    gap: 6px;
+    padding: 16px 16px;
+    background: var(--bg-light);
+  }
+  .badge-item {
+    flex: 1;
+    background: var(--bg-white);
+    border: 1.5px solid #F3E8B5;
+    border-radius: var(--r-md);
+    padding: 12px 4px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+  .badge-item .num {
+    font-size: 22px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #D4A017, #B8860B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+  .badge-item .num small { font-size: 11px; }
+  .badge-item .label {
+    font-size: 9px;
+    color: var(--text-tertiary);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  /* ===== CTA ===== */
+  .cta-area { padding: 16px 20px; }
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 18px 24px;
+    border-radius: 60px;
+    text-align: center;
+    box-shadow: 0 6px 24px rgba(6,199,85,0.3);
+    position: relative;
+    overflow: hidden;
+    transition: transform .15s;
+  }
+  .cta-btn:active { transform: scale(.97); }
+  .cta-btn::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    animation: shine 3s ease-in-out infinite;
+  }
+  @keyframes shine { 0%{left:-100%;} 50%,100%{left:100%;} }
+  .cta-btn .line-icon {
+    width: 24px;
+    height: 24px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 900;
+  }
+  .cta-note {
+    text-align: center;
+    font-size: 10px;
+    color: var(--text-tertiary);
+    margin-top: 8px;
+  }
+
+  /* ===== SECTION STYLES ===== */
+  .sec { padding: 48px 20px; }
+  .sec.bg-light { background: var(--bg-light); }
+  .sec.bg-warm { background: var(--bg-warm); }
+  .sec.bg-navy { background: linear-gradient(170deg, var(--navy), var(--navy-mid)); color: #fff; }
+  .sec.bg-primary-light { background: var(--primary-light); }
+  .sec.bg-blue-light { background: var(--blue-light); }
+  .sec.bg-red-light { background: var(--red-light); }
+
+  .sec-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--primary);
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+  }
+  .sec.bg-navy .sec-label { color: var(--accent); }
+
+  .sec-title {
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1.6;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .sec-title .em { color: var(--red); }
+  .sec-title .em-green { color: #16A34A; }
+  .sec-title .em-gold {
+    background: linear-gradient(135deg, #D4A017, #B8860B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .sec.bg-navy .sec-title { color: #fff; }
+
+  .body { font-size: 14px; color: var(--text-secondary); line-height: 1.9; }
+  .body.center { text-align: center; }
+  .body strong { color: var(--text-primary); }
+  .hl { background: linear-gradient(transparent 55%, #FEF08A 55%); font-weight: 700; color: var(--text-primary); }
+  .hl-green { background: linear-gradient(transparent 55%, #BBF7D0 55%); font-weight: 700; }
+
+  /* ===== WAVE DIVIDER ===== */
+  .wave {
+    height: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .wave svg {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+  }
+  .wave.white svg path { fill: var(--bg-white); }
+  .wave.light svg path { fill: var(--bg-light); }
+  .wave.warm svg path { fill: var(--bg-warm); }
+  .wave.navy svg path { fill: var(--navy); }
+
+  /* ===== CAMPAIGN ===== */
+  .campaign-head {
+    background: linear-gradient(135deg, var(--navy), #1a2a4a);
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .campaign-head h2 {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .campaign-head p { font-size: 12px; color: #7A8BA3; }
+
+  .bonus-card {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 var(--r-md) var(--r-md) 0;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    box-shadow: var(--shadow-sm);
+  }
+  .bonus-no {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--accent), #E6A800);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+  .bonus-info h4 { font-size: 13px; font-weight: 700; line-height: 1.4; }
+  .bonus-info p { font-size: 11px; color: var(--text-tertiary); margin-top: 1px; }
+
+  /* ===== CHART ===== */
+  .chart-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 24px 18px;
+    box-shadow: var(--shadow-md);
+  }
+  .chart-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .chart-legend {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 14px;
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+  .chart-legend .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+  .bar-group { margin-bottom: 14px; }
+  .bar-group.featured {
+    background: #FFF8E1;
+    margin: 0 -18px;
+    padding: 10px 18px;
+    border-radius: var(--r-sm);
+  }
+  .bar-group .label { font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px; }
+  .bar-group.featured .label { color: var(--red); font-weight: 800; font-size: 13px; }
+  .bar-row { display: flex; align-items: center; gap: 6px; margin: 3px 0; }
+  .bar-row .tag { width: 24px; font-size: 8px; font-weight: 700; text-align: right; flex-shrink: 0; }
+  .bar-track { flex: 1; height: 20px; background: #F3F4F6; border-radius: 4px; overflow: hidden; }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .bar-fill.demand { background: linear-gradient(90deg, #FCA5A5, var(--red)); }
+  .bar-fill.supply { background: linear-gradient(90deg, #93C5FD, var(--blue)); }
+  .chart-result {
+    text-align: center;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--red);
+  }
+
+  /* ===== JOB CARD ===== */
+  .job-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    box-shadow: var(--shadow-sm);
+  }
+  .job-card h4 { font-size: 13px; font-weight: 700; }
+  .job-card .meta { font-size: 10px; color: var(--text-tertiary); margin-top: 2px; }
+  .job-card .rate { font-size: 16px; font-weight: 900; color: var(--red); white-space: nowrap; }
+
+  /* ===== INCOME ===== */
+  .income-card {
+    background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+    border-radius: var(--r-xl);
+    padding: 28px 22px;
+    color: #fff;
+    box-shadow: var(--shadow-lg);
+  }
+  .income-card h3 {
+    text-align: center;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  .income-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .income-row:last-child { border-bottom: none; }
+  .income-row .label { font-size: 13px; color: #7A8BA3; }
+  .income-row .val { font-weight: 900; }
+  .income-row .val.gold { color: var(--accent); font-size: 18px; }
+  .income-row .val.green { color: #4ADE80; font-size: 22px; }
+  .income-row .val.red { color: #FF6B6B; font-size: 26px; }
+
+  .ai-box {
+    background: var(--bg-white);
+    border: 3px solid var(--primary);
+    border-radius: var(--r-xl);
+    padding: 32px 20px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    position: relative;
+  }
+  .ai-box::before {
+    content: "AI";
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: #fff;
+    padding: 4px 20px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+  .ai-box .pre { font-size: 13px; color: var(--text-secondary); margin-top: 8px; }
+  .ai-box .big {
+    font-size: 60px;
+    font-weight: 900;
+    color: var(--primary-dark);
+    line-height: 1;
+    margin: 8px 0;
+  }
+  .ai-box .big span { font-size: 20px; }
+  .ai-box .breakdown {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    line-height: 2;
+    margin-top: 12px;
+  }
+
+  .calc-result {
+    background: var(--primary-light);
+    border-radius: var(--r-lg);
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .calc-result .formula { font-size: 14px; font-weight: 700; color: var(--text-primary); line-height: 1.8; }
+  .calc-result .hourly { font-size: 12px; color: var(--text-tertiary); margin-top: 4px; }
+  .calc-result .hourly strong { font-size: 22px; color: var(--red); }
+
+  /* ===== EMPATHY ===== */
+  .empathy-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .empathy-card .no {
+    width: 28px;
+    height: 28px;
+    background: var(--red-light);
+    color: var(--red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+  .empathy-card .text h4 { font-size: 14px; font-weight: 700; line-height: 1.5; }
+  .empathy-card .text p { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+
+  /* ===== SHIFT CHECK ===== */
+  .check-list {
+    background: var(--bg-white);
+    border-radius: var(--r-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+  .check-item {
+    font-size: 13px;
+    line-height: 2.4;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+  }
+  .check-item .icon { color: var(--primary); font-weight: 700; font-size: 14px; flex-shrink: 0; }
+  .check-item strong { color: var(--primary-dark); }
+
+  /* ===== INSTRUCTOR ===== */
+  .instructor-visual {
+    width: 100%;
+    height: 240px;
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .instructor-visual .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 3px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+  }
+  .instructor-visual .label { color: rgba(255,255,255,0.4); font-size: 12px; }
+  .instructor-name {
+    text-align: center;
+    padding: 16px 0 8px;
+  }
+  .instructor-name .title { font-size: 11px; color: var(--text-tertiary); }
+  .instructor-name .name { font-size: 22px; font-weight: 900; margin-top: 2px; }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .stat-card {
+    background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+    border-radius: var(--r-md);
+    padding: 18px 12px;
+    text-align: center;
+  }
+  .stat-card .num {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1.2;
+  }
+  .stat-card .num small { font-size: 13px; }
+  .stat-card .label {
+    font-size: 10px;
+    color: #7A8BA3;
+    margin-top: 4px;
+  }
+
+  .story-text {
+    font-size: 14px;
+    line-height: 2.2;
+    color: var(--text-secondary);
+    padding: 12px 0;
+    position: relative;
+  }
+  .story-text::before {
+    content: "\201C";
+    font-size: 48px;
+    color: var(--border);
+    position: absolute;
+    top: 0;
+    left: -4px;
+    line-height: 1;
+  }
+
+  .media-bar {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 12px 0;
+  }
+  .media-item {
+    width: 72px;
+    height: 32px;
+    background: var(--bg-light);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    color: var(--text-tertiary);
+    font-weight: 700;
+    border: 1px solid var(--border);
+  }
+
+  /* ===== REASON ===== */
+  .reason-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 22px 20px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow .2s;
+  }
+  .reason-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+  .reason-no {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--r-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 900;
+    flex-shrink: 0;
+  }
+  .reason-card:nth-child(1) .reason-no { background: #DBEAFE; color: var(--blue); }
+  .reason-card:nth-child(2) .reason-no { background: #DCFCE7; color: #16A34A; }
+  .reason-card:nth-child(3) .reason-no { background: #FFF7ED; color: #EA580C; }
+  .reason-card:nth-child(4) .reason-no { background: #FFF1F2; color: var(--red); }
+  .reason-card:nth-child(5) .reason-no { background: #EDE9FE; color: #7C3AED; }
+  .reason-h { font-size: 15px; font-weight: 800; line-height: 1.4; }
+  .reason-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+
+  /* ===== TESTIMONIAL ===== */
+  .testi-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 22px 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-sm);
+  }
+  .testi-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .testi-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E5E7EB, #D1D5DB);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .testi-top .name { font-size: 14px; font-weight: 700; }
+  .testi-top .meta { font-size: 11px; color: var(--text-tertiary); }
+  .testi-ba {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .testi-ba > div {
+    flex: 1;
+    padding: 10px 8px;
+    border-radius: var(--r-sm);
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .testi-ba .before { background: var(--red-light); color: #991B1B; }
+  .testi-ba .after { background: #DCFCE7; color: #166534; }
+  .testi-ba .after .big { display: block; font-size: 17px; font-weight: 900; margin-top: 2px; }
+  .testi-quote {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    padding-left: 12px;
+    border-left: 3px solid var(--primary);
+  }
+
+  /* ===== CURRICULUM ===== */
+  .curr-card {
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    margin-bottom: 10px;
+    box-shadow: var(--shadow-sm);
+  }
+  .curr-head {
+    background: linear-gradient(135deg, var(--blue), #1D4ED8);
+    color: #fff;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .curr-body { padding: 14px 16px; }
+  .curr-body li {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin: 5px 0;
+    list-style: none;
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .curr-body li::before {
+    content: "\2713";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 11px;
+  }
+
+  /* ===== COMPARE TABLE ===== */
+  .compare-wrap { overflow-x: auto; margin: 16px 0; }
+  .compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 12px;
+  }
+  .compare-table th, .compare-table td {
+    padding: 10px 8px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table thead th {
+    background: var(--bg-light);
+    font-weight: 700;
+    font-size: 11px;
+    position: sticky;
+    top: 0;
+  }
+  .compare-table td:first-child {
+    font-weight: 700;
+    text-align: left;
+    font-size: 11px;
+    background: var(--bg-white);
+  }
+  .compare-table .ours {
+    background: #EFF6FF;
+    border-left: 2px solid var(--blue);
+    border-right: 2px solid var(--blue);
+  }
+  .compare-table thead .ours {
+    border-top: 2px solid var(--blue);
+    color: var(--blue);
+  }
+  .compare-table .winner {
+    color: #16A34A;
+    font-weight: 800;
+  }
+
+  /* ===== SURVEY ===== */
+  .survey-card {
+    background: linear-gradient(135deg, #FAF5FF, #F3E8FF);
+    border: 1.5px solid #C084FC;
+    border-radius: var(--r-lg);
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+  .survey-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: #581C87;
+    margin-bottom: 12px;
+  }
+  .survey-opt {
+    background: var(--bg-white);
+    border: 1.5px solid #E9D5FF;
+    border-radius: var(--r-sm);
+    padding: 12px 16px;
+    margin-bottom: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .survey-opt:hover { border-color: #A855F7; background: #FAF5FF; }
+  .survey-opt.active { border-color: #A855F7; background: #F3E8FF; font-weight: 700; }
+
+  /* ===== STEP FLOW ===== */
+  .flow-card {
+    display: flex;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid #F3F4F6;
+    align-items: flex-start;
+  }
+  .flow-card:last-child { border-bottom: none; }
+  .flow-no {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--blue), #1D4ED8);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 15px;
+    flex-shrink: 0;
+    box-shadow: 0 3px 10px rgba(37,99,235,0.25);
+  }
+  .flow-no.green { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); box-shadow: 0 3px 10px rgba(6,199,85,0.25); }
+  .flow-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+  .flow-card p { font-size: 12px; color: var(--text-tertiary); }
+
+  /* ===== GUARANTEE ===== */
+  .guarantee {
+    background: linear-gradient(135deg, #DCFCE7, #BBF7D0);
+    border: 3px solid var(--primary);
+    border-radius: var(--r-xl);
+    padding: 36px 24px;
+    text-align: center;
+    position: relative;
+  }
+  .guarantee::before {
+    content: "GUARANTEE";
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: #fff;
+    padding: 4px 20px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+  .guarantee .pre { font-size: 14px; color: #166534; margin-top: 4px; }
+  .guarantee h3 { font-size: 26px; font-weight: 900; color: #166534; margin: 8px 0 16px; }
+  .guarantee .desc { font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+
+  /* ===== FAQ ===== */
+  .faq-item {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    padding-left: 32px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  .faq-q::before {
+    content: "Q";
+    position: absolute;
+    left: 0;
+    top: -1px;
+    width: 24px;
+    height: 24px;
+    background: var(--blue);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .faq-a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    padding-left: 32px;
+  }
+
+  /* ===== FINAL CTA ===== */
+  .final-cta {
+    background: linear-gradient(170deg, var(--bg-white) 0%, #F0FFF4 50%, #ECFDF5 100%);
+    padding: 48px 20px;
+  }
+  .urgency {
+    background: var(--bg-white);
+    border: 2px solid var(--red);
+    border-radius: var(--r-lg);
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+  .urgency h3 { font-size: 18px; font-weight: 900; color: var(--red); }
+  .urgency p { font-size: 12px; color: var(--text-secondary); margin-top: 6px; line-height: 1.6; }
+  .risk-text {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #16A34A;
+    padding: 16px 0;
+    line-height: 1.8;
+  }
+  .ps {
+    background: var(--bg-light);
+    border-radius: var(--r-lg);
+    padding: 20px;
+  }
+  .ps h4 { font-size: 14px; font-weight: 800; margin-bottom: 10px; }
+  .ps p { font-size: 13px; color: var(--text-secondary); line-height: 2; }
+
+  /* ===== FLOATING CTA ===== */
+  .float-cta {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 430px;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(16px);
+    padding: 10px 16px 12px;
+    border-top: 1px solid #F3F4F6;
+    z-index: 999;
+    box-shadow: 0 -2px 20px rgba(0,0,0,0.06);
+  }
+  .float-cta .cta-btn { padding: 14px 20px; font-size: 14px; }
+  .float-cta .sub {
+    text-align: center;
+    font-size: 10px;
+    color: var(--text-tertiary);
+    margin-top: 4px;
+  }
+
+  .footer {
+    background: var(--navy);
+    padding: 20px;
+    text-align: center;
+    font-size: 10px;
+    color: #4B5F78;
+  }
+  .spacer { height: 76px; }
+
+  /* ===== IMAGE PLACEHOLDER ===== */
+  .img-ph {
+    width: 100%;
+    border-radius: var(--r-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: rgba(255,255,255,0.5);
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .img-ph .ico { font-size: 28px; }
+</style>
+</head>
+<body>
+
+<div class="lp">
+
+  <!-- FLOATING CTA -->
+  <div class="float-cta">
+    <a href="#" class="cta-btn"><span class="line-icon">L</span>LINE追加で7大特典をゲットする</a>
+    <div class="sub">無料 / 30秒で完了</div>
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown">
+    無料セミナー締切まで <span class="time" id="timer">23:59:48</span>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="logo">エル<span>マーケ</span></div>
+    <span class="live-badge">受付中</span>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-label">AI x LINE MARKETING SCHOOL</div>
+    <div class="hero-photo">
+      <div class="hero-photo-inner">
+        <span class="icon">&#x1F464;</span>
+        <span>代表写真</span>
+      </div>
+    </div>
+    <h1>
+      LINEで
+      <span class="accent">1億円以上</span>
+      の資産を手に入れた方法、
+      <span class="sub">あなたにも教えます。</span>
+    </h1>
+    <p class="hero-desc">
+      需要爆発 x 供給不足のLINE運用市場で<br>
+      <span class="hl">月30万円のストック収入</span>を<br>
+      <span class="red">AIを使えば1日たった3時間</span>で手に入れる
+    </p>
+  </section>
+
+  <!-- BADGES -->
+  <div class="badge-bar">
+    <div class="badge-item">
+      <div class="num">500<small>名</small></div>
+      <div class="label">受講生突破</div>
+    </div>
+    <div class="badge-item">
+      <div class="num">98.2<small>%</small></div>
+      <div class="label">満足度</div>
+    </div>
+    <div class="badge-item">
+      <div class="num">+38<small>万</small></div>
+      <div class="label">平均月収UP</div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-area">
+    <a href="#" class="cta-btn"><span class="line-icon">L</span>LINE追加で特典をゲットする</a>
+    <p class="cta-note">※ LINE追加するだけで7大特典を無料プレゼント。30秒で完了。</p>
+  </div>
+
+  <!-- ===== CAMPAIGN ===== -->
+  <div class="campaign-head">
+    <h2>今だけ無料 / 7大特典プレゼント</h2>
+    <p>LINE登録するだけで全て受け取れます</p>
+  </div>
+  <section class="sec bg-warm">
+    <div class="bonus-card"><div class="bonus-no">1</div><div class="bonus-info"><h4>LINE運用完全ロードマップ（動画60分）</h4><p>ゼロから月30万までの全ステップ</p></div></div>
+    <div class="bonus-card"><div class="bonus-no">2</div><div class="bonus-info"><h4>AI x LINE運用テンプレート集</h4><p>そのままコピペで使えるプロンプト50選</p></div></div>
+    <div class="bonus-card"><div class="bonus-no">3</div><div class="bonus-info"><h4>LINE構築 提案書テンプレート</h4><p>これだけで案件が取れた実績あり</p></div></div>
+    <div class="bonus-card"><div class="bonus-no">4</div><div class="bonus-info"><h4>高単価案件の取り方セミナー録画</h4><p>時給5,000円案件を獲得する営業術</p></div></div>
+    <div class="bonus-card"><div class="bonus-no">5</div><div class="bonus-info"><h4>LINE運用チェックリスト100</h4><p>プロが現場で使う確認シート</p></div></div>
+    <div class="bonus-card"><div class="bonus-no">6</div><div class="bonus-info"><h4>成功事例集（PDF 80ページ）</h4><p>業種別LINE活用の成功パターン</p></div></div>
+    <div class="bonus-card"><div class="bonus-no">7</div><div class="bonus-info"><h4>個別相談チケット（通常5,000円）</h4><p>あなた専用のキャリアプランを設計</p></div></div>
+    <div class="cta-area" style="padding:20px 0 0;">
+      <a href="#" class="cta-btn"><span class="line-icon">L</span>LINE追加で7大特典をゲット</a>
+    </div>
+  </section>
+
+  <!-- ===== ERA ===== -->
+  <section class="sec">
+    <div class="sec-label">MARKET</div>
+    <div class="sec-title">知っていますか？<br><span class="hl">LINEスキルは今、最も<br>"割がいい"スキル</span>です。</div>
+    <div class="chart-card">
+      <h3>Webスキル別「需要 vs 供給」バランス</h3>
+      <div class="chart-legend">
+        <span><span class="dot" style="background:var(--red);"></span>需要</span>
+        <span><span class="dot" style="background:var(--blue);"></span>供給</span>
+      </div>
+      <div class="bar-group"><div class="label">Webデザイン</div><div class="bar-row"><div class="tag" style="color:var(--red);">需要</div><div class="bar-track"><div class="bar-fill demand" style="width:60%;">60</div></div></div><div class="bar-row"><div class="tag" style="color:var(--blue);">供給</div><div class="bar-track"><div class="bar-fill supply" style="width:85%;">85</div></div></div></div>
+      <div class="bar-group"><div class="label">動画編集</div><div class="bar-row"><div class="tag" style="color:var(--red);">需要</div><div class="bar-track"><div class="bar-fill demand" style="width:55%;">55</div></div></div><div class="bar-row"><div class="tag" style="color:var(--blue);">供給</div><div class="bar-track"><div class="bar-fill supply" style="width:80%;">80</div></div></div></div>
+      <div class="bar-group"><div class="label">SNS運用</div><div class="bar-row"><div class="tag" style="color:var(--red);">需要</div><div class="bar-track"><div class="bar-fill demand" style="width:65%;">65</div></div></div><div class="bar-row"><div class="tag" style="color:var(--blue);">供給</div><div class="bar-track"><div class="bar-fill supply" style="width:70%;">70</div></div></div></div>
+      <div class="bar-group featured"><div class="label">LINE運用 &#9733;</div><div class="bar-row"><div class="tag" style="color:var(--red);">需要</div><div class="bar-track"><div class="bar-fill demand" style="width:95%;">95</div></div></div><div class="bar-row"><div class="tag" style="color:var(--blue);">供給</div><div class="bar-track"><div class="bar-fill supply" style="width:20%;">20</div></div></div></div>
+      <div class="chart-result">LINE運用 = 需要MAXなのに人材がいない</div>
+    </div>
+    <p class="body center" style="font-weight:700; font-size:15px; padding-top:24px;">つまり、<span class="hl">今LINE運用を覚えるだけで<br>"引く手あまた"の人材になれる。</span></p>
+  </section>
+
+  <!-- ===== JOBS ===== -->
+  <section class="sec bg-light">
+    <div class="sec-label">EVIDENCE</div>
+    <div class="sec-title">実際の求人を見てください。<br><span class="em">時給5,000円以上</span>がゴロゴロ。</div>
+    <div class="job-card"><div><h4>LINE公式アカウント構築・運用代行</h4><div class="meta">業務委託 / フルリモート</div></div><div class="rate">時給5,000円</div></div>
+    <div class="job-card"><div><h4>LINE支援事業 マーケ x デザイン担当</h4><div class="meta">業務委託 / 渋谷区</div></div><div class="rate">月給25-80万</div></div>
+    <div class="job-card"><div><h4>LINEマーケティング ディレクター</h4><div class="meta">業務委託 / フルリモート</div></div><div class="rate">時給6,000円</div></div>
+    <div class="job-card"><div><h4>LINE構築 運用アシスタント（未経験OK）</h4><div class="meta">業務委託 / 完全在宅</div></div><div class="rate">時給3,000-6,000円</div></div>
+    <div class="img-ph" style="height:100px; background:linear-gradient(135deg,#E0E7FF,#C7D2FE); color:#4338CA; margin-top:12px;"><span class="ico">&#x1F4CA;</span><span>求人サイトのスクリーンショット</span></div>
+    <p class="body center" style="font-weight:700; padding-top:20px;">しかも、<span class="hl-green">完全在宅・フルリモート</span>が当たり前。<br><span style="font-size:12px; color:var(--text-tertiary);">通勤ゼロ。パジャマで働ける。</span></p>
+  </section>
+
+  <!-- ===== INCOME ===== -->
+  <section class="sec">
+    <div class="sec-label">INCOME MODEL</div>
+    <div class="sec-title">LINE運用代行は<br><span class="em-gold">「ストック型ビジネス」</span></div>
+    <p class="body center" style="font-weight:600;">一度クライアントを獲得すれば<br><span class="hl">毎月安定して報酬が入り続ける。</span></p>
+    <div class="income-card" style="margin-top:24px;">
+      <h3>&#x1F4B0; 収入シミュレーション</h3>
+      <div class="income-row"><span class="label">クライアント1社あたり</span><span class="val gold">月10万円</span></div>
+      <div class="income-row"><span class="label">3社獲得で</span><span class="val green">月30万円</span></div>
+      <div class="income-row"><span class="label">年間で</span><span class="val red">360万円</span></div>
+    </div>
+    <div class="ai-box" style="margin-top:28px;">
+      <div class="pre">1社あたりの月間作業時間は</div>
+      <div class="big">約3<span>時間</span></div>
+      <div class="breakdown">配信文作成 → AI（15分）<br>リッチメニュー更新 → AI（20分）<br>分析レポート → AI（15分）<br>クライアントMTG（60分）<br>その他運用作業（70分）</div>
+    </div>
+    <div class="calc-result">
+      <div class="formula">3社 x 3時間 = <span style="color:var(--red); font-size:18px;">月たった9時間</span>で<br><span class="hl" style="font-size:16px;">月収30万円。</span></div>
+      <div class="hourly">時給換算 <strong>33,333円</strong></div>
+    </div>
+    <div class="cta-area" style="padding:20px 0 0;"><a href="#" class="cta-btn"><span class="line-icon">L</span>LINE追加で特典をゲットする</a></div>
+  </section>
+
+  <!-- ===== EMPATHY ===== -->
+  <section class="sec bg-light">
+    <div class="sec-title">こんな悩み、ありませんか？</div>
+    <div class="empathy-card"><div class="no">1</div><div class="text"><h4>副業したいけど、何をやればいいかわからない。</h4><p>動画編集？Webデザイン？...結局どれも中途半端。</p></div></div>
+    <div class="empathy-card"><div class="no">2</div><div class="text"><h4>スキルを身につけても、案件が取れない。</h4><p>クラウドソーシングで消耗。単価が低すぎて割に合わない。</p></div></div>
+    <div class="empathy-card"><div class="no">3</div><div class="text"><h4>「LINE運用」が儲かるらしいけど、何から始めれば？</h4><p>YouTube見ても断片的。体系的に学べる場所がない。</p></div></div>
+    <div class="empathy-card"><div class="no">4</div><div class="text"><h4>フリーランスの収入が不安定。毎月ゼロからの営業がつらい。</h4><p>ストック型の収入源がほしい。</p></div></div>
+    <div class="empathy-card"><div class="no">5</div><div class="text"><h4>今の会社の給料だけじゃ将来が不安。</h4><p>でも独立する勇気もリスクも取れない。副業から始めたい。</p></div></div>
+    <p class="body center" style="font-weight:700; font-size:15px; padding-top:20px;"><span class="hl">1つでも当てはまるなら、<br>この先を読んでください。</span></p>
+  </section>
+
+  <!-- ===== SHIFT ===== -->
+  <section class="sec">
+    <div style="text-align:center; margin-bottom:24px;">
+      <p style="font-size:14px; color:var(--text-tertiary);">「LINE運用って難しそう...」</p>
+      <p style="font-size:14px; color:var(--text-tertiary); margin-bottom:20px;">「自分にできるわけない...」</p>
+      <p style="font-size:18px; font-weight:900;">そう思いましたよね？</p>
+      <p style="font-size:24px; font-weight:900; color:#16A34A; margin-top:16px;">でも、<br>時代が変わりました。</p>
+    </div>
+    <div class="img-ph" style="height:160px; background:linear-gradient(135deg,#DBEAFE,#BFDBFE); color:var(--blue); margin-bottom:20px;"><span class="ico">&#x1F504;</span><span>Before → After 比較図</span></div>
+    <p class="body center" style="font-size:15px;">AIが進化したことで、LINE運用の技術的ハードルは<br><span style="font-size:20px; font-weight:900; color:var(--red);">劇的に下がりました。</span></p>
+    <div class="check-list" style="margin-top:20px;">
+      <div class="check-item"><span class="icon">&#10003;</span><span>リッチメニューのデザイン → <strong>AIが自動生成</strong></span></div>
+      <div class="check-item"><span class="icon">&#10003;</span><span>ステップ配信の文章 → <strong>AIが自動作成</strong></span></div>
+      <div class="check-item"><span class="icon">&#10003;</span><span>顧客分析・レポート → <strong>AIが自動分析</strong></span></div>
+      <div class="check-item"><span class="icon">&#10003;</span><span>提案書の作成 → <strong>AIがたたき台を生成</strong></span></div>
+    </div>
+    <p class="body center" style="font-weight:700; font-size:16px; padding-top:24px;">あなたがやるのは<br><span class="hl">「AIに正しい指示を出すこと」</span>だけ。</p>
+  </section>
+
+  <!-- ===== INSTRUCTOR ===== -->
+  <section class="sec bg-light" style="padding-top:0;">
+    <div class="instructor-visual">
+      <div class="avatar">&#x1F464;</div>
+      <span class="label">代表プロフィール写真</span>
+    </div>
+    <div style="padding:0 20px;">
+      <div class="sec-label" style="margin-top:24px;">INSTRUCTOR</div>
+      <div class="sec-title">なぜ、エルマーケが教えるのか</div>
+      <div class="instructor-name">
+        <div class="title">株式会社エルマーケ 代表</div>
+        <div class="name">&mdash; &mdash;</div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="num">1億円<small>以上</small></div><div class="label">LINEで生み出した資産</div></div>
+        <div class="stat-card"><div class="num">300<small>社</small></div><div class="label">LINE構築・運用実績</div></div>
+        <div class="stat-card"><div class="num">500<small>名</small></div><div class="label">スクール受講生</div></div>
+        <div class="stat-card"><div class="num">92<small>%</small></div><div class="label">受講生の案件獲得率</div></div>
+      </div>
+      <div class="story-text" style="padding-left:20px;">
+        LINEマーケティングに出会い、人生が変わりました。<br><br>
+        最初は副業から。たった1つのLINEアカウント運用から始めて、気づけば<span class="hl">1億円以上の資産</span>を築くことができた。<br><br>
+        この方法は、特別な才能なんていりません。正しいやり方を知って、AIを味方につければ、<strong>誰でも再現できる。</strong><br><br>
+        だから、このスクールを作りました。
+      </div>
+      <div class="media-bar">
+        <div class="media-item">メディア1</div>
+        <div class="media-item">メディア2</div>
+        <div class="media-item">メディア3</div>
+        <div class="media-item">メディア4</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REASONS ===== -->
+  <section class="sec">
+    <div class="sec-label">WHY US</div>
+    <div class="sec-title">エルマーケが選ばれる<br><span style="color:var(--blue);">5つの理由</span></div>
+    <div class="reason-card"><div class="reason-top"><div class="reason-no">01</div><div class="reason-h">AI x LINE運用に完全特化</div></div><div class="reason-desc">一般のWebマーケスクールではLINEは「一部」。当スクールはLINE x AIに完全特化。だから密度が違う。</div></div>
+    <div class="reason-card"><div class="reason-top"><div class="reason-no">02</div><div class="reason-h">実績1億円の現役プレイヤーが直接指導</div></div><div class="reason-desc">「教えるだけの人」ではなく、今もLINEで億を稼ぎ続けている現役が教える。机上の空論ゼロ。</div></div>
+    <div class="reason-card"><div class="reason-top"><div class="reason-no">03</div><div class="reason-h">AIテンプレで作業時間を1/10に</div></div><div class="reason-desc">独自のAIプロンプト集+テンプレートで、通常30時間の作業が3時間に。だから副業でも無理なく続けられる。</div></div>
+    <div class="reason-card"><div class="reason-top"><div class="reason-no">04</div><div class="reason-h">案件獲得まで徹底サポート</div></div><div class="reason-desc">スキルだけ教えて終わりじゃない。提案書テンプレ、営業手法、料金設定まで。実際に稼ぐところまで伴走。</div></div>
+    <div class="reason-card"><div class="reason-top"><div class="reason-no">05</div><div class="reason-h">ストック収入で人生を変える設計</div></div><div class="reason-desc">単発案件ではなく「月額運用」を獲得する戦略を教える。1社10万 x 3社 = 月30万が自動で入り続ける。</div></div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="sec bg-light">
+    <div class="sec-label">RESULTS</div>
+    <div class="sec-title">受講生の成果（一部）</div>
+    <div class="testi-card"><div class="testi-top"><div class="testi-avatar">&#x1F469;</div><div><div class="name">A.Sさん（32歳・女性）</div><div class="meta">元Webデザイナー → LINE運用フリーランス</div></div></div><div class="testi-ba"><div class="before">Before<br>フリーランス<br>月収25万で不安定</div><div class="after">After<br><span class="big">月収72万</span>ストック収入で安定</div></div><div class="testi-quote">"LINE運用を追加しただけで単価が3倍に。しかも<span class="hl">毎月自動で入る</span>から精神的にも安定。AIのおかげで作業も1日2時間程度です。"</div></div>
+    <div class="testi-card"><div class="testi-top"><div class="testi-avatar">&#x1F468;</div><div><div class="name">K.Tさん（28歳・男性）</div><div class="meta">会社員 → 副業でLINE運用代行</div></div></div><div class="testi-ba"><div class="before">Before<br>副業収入0円<br>残業月40時間</div><div class="after">After<br><span class="big">副業月収35万</span>本業は定時退社</div></div><div class="testi-quote">"完全未経験から3ヶ月。<span class="hl">AIに指示出すだけでプロレベルの成果物が出る</span>ので、クライアントにも驚かれます。"</div></div>
+    <div class="testi-card"><div class="testi-top"><div class="testi-avatar">&#x1F469;</div><div><div class="name">R.Mさん（41歳・女性）</div><div class="meta">主婦 → 在宅LINE運用ワーカー</div></div></div><div class="testi-ba"><div class="before">Before<br>パート月収8万<br>子育てで時間なし</div><div class="after">After<br><span class="big">在宅で月収28万</span>子どもとの時間も確保</div></div><div class="testi-quote">"子供が寝た後の2-3時間だけ。パートの3倍以上稼げてるのに<span class="hl">通勤ゼロ</span>。もっと早く知りたかった。"</div></div>
+    <div class="testi-card"><div class="testi-top"><div class="testi-avatar">&#x1F468;</div><div><div class="name">T.Hさん（36歳・男性）</div><div class="meta">営業マン → LINE運用で独立</div></div></div><div class="testi-ba"><div class="before">Before<br>年収420万<br>毎日終電</div><div class="after">After<br><span class="big">年収960万</span>週4勤務・自由</div></div><div class="testi-quote">"営業力 x LINE運用が最強の組み合わせでした。<span class="hl">8社のストック案件で月80万</span>。会社員に戻る理由がない。"</div></div>
+    <p style="font-size:10px; color:var(--text-tertiary); text-align:center; padding:8px 0;">※ 個人の感想であり、成果を保証するものではありません。</p>
+    <div class="cta-area" style="padding:16px 0 0;"><a href="#" class="cta-btn"><span class="line-icon">L</span>LINE追加で特典をゲットする</a></div>
+  </section>
+
+  <!-- ===== CURRICULUM ===== -->
+  <section class="sec">
+    <div class="sec-label">CURRICULUM</div>
+    <div class="sec-title"><span style="display:block; font-size:12px; color:var(--text-tertiary); font-weight:500; margin-bottom:6px;">全200本以上の動画講義</span>未経験→月30万の<br>完全ロードマップ</div>
+    <div class="curr-card"><div class="curr-head">STEP 1: LINE基礎マスター（1-2週目）</div><div class="curr-body"><ul><li>LINE公式アカウントの開設と初期設定</li><li>あいさつメッセージの最適化</li><li>友だち追加経路の設計</li><li>基本配信の設計と実践</li></ul></div></div>
+    <div class="curr-card"><div class="curr-head">STEP 2: AI x LINE運用術（3-4週目）</div><div class="curr-body"><ul><li>AIでリッチメニューを自動生成する方法</li><li>AIで配信文を量産するプロンプト術</li><li>AIで顧客分析・レポートを自動作成</li><li>作業時間を1/10にするAIワークフロー</li></ul></div></div>
+    <div class="curr-card"><div class="curr-head">STEP 3: ファネル設計・自動化（5-6週目）</div><div class="curr-body"><ul><li>LINEマーケティングファネルの全体設計</li><li>ステップ配信のシナリオ設計</li><li>セグメント配信とタグ管理</li><li>Lステップ / エルメの使い分け</li></ul></div></div>
+    <div class="curr-card"><div class="curr-head">STEP 4: 高単価案件の取り方（7-8週目）</div><div class="curr-body"><ul><li>時給5,000円案件の見つけ方</li><li>提案書テンプレートの使い方</li><li>料金設定と見積もりの作り方</li><li>月額契約（ストック）の提案術</li></ul></div></div>
+    <div class="curr-card"><div class="curr-head">STEP 5: 月30万→100万へスケール（9-12週目）</div><div class="curr-body"><ul><li>複数クライアントの効率管理</li><li>単価アップ交渉術</li><li>チーム化・外注化のノウハウ</li><li>LINE運用事業の仕組み化</li></ul></div></div>
+    <div class="img-ph" style="height:120px; background:linear-gradient(135deg,var(--navy),var(--navy-mid)); margin-top:12px;"><span class="ico">&#x1F3AC;</span><span>講義動画のチラ見せ</span></div>
+  </section>
+
+  <!-- ===== COMPARISON ===== -->
+  <section class="sec bg-light">
+    <div class="sec-label">COMPARISON</div>
+    <div class="sec-title">スクール選びで<br>失敗しないために</div>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead><tr><th></th><th>独学<br><small>(YouTube)</small></th><th>一般<br><small>Webスクール</small></th><th class="ours">エルマーケ</th></tr></thead>
+        <tbody>
+          <tr><td>LINE特化</td><td>&#9651; 断片的</td><td>&#9651; 一部</td><td class="ours winner">&#9678; 完全特化</td></tr>
+          <tr><td>AI活用</td><td>&times;</td><td>&#9651;</td><td class="ours winner">&#9678; 全面活用</td></tr>
+          <tr><td>作業効率</td><td>&times; 全手動</td><td>&#9651;</td><td class="ours winner">&#9678; AI自動化</td></tr>
+          <tr><td>案件獲得</td><td>&times; なし</td><td>&#9651;</td><td class="ours winner">&#9678; 徹底支援</td></tr>
+          <tr><td>収入モデル</td><td>&times; 不明</td><td>&#9651; 単発</td><td class="ours winner">&#9678; ストック型</td></tr>
+          <tr><td>講師実績</td><td>&times; 不明</td><td>&#9675;</td><td class="ours winner">&#9678; 1億円超</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== SURVEY ===== -->
+  <section class="sec">
+    <div class="sec-title">30秒で完了！<br>あなたに最適なプランを診断</div>
+    <div class="survey-card"><div class="survey-q">Q1. 今の一番の悩みは？</div><div class="survey-opt">副業で安定収入がほしい</div><div class="survey-opt">今のスキルでは将来が不安</div><div class="survey-opt">フリーランスだが収入が不安定</div><div class="survey-opt">LINE運用に興味あるが学び方がわからない</div></div>
+    <div class="survey-card"><div class="survey-q">Q2. 目標の月収は？</div><div class="survey-opt">まずは月10-20万の副業収入</div><div class="survey-opt">月30万で生活を安定させたい</div><div class="survey-opt">月50万以上で独立したい</div><div class="survey-opt">月100万を目指したい</div></div>
+    <div class="survey-card"><div class="survey-q">Q3. このスクールで魅力的だった点は？</div><div class="survey-opt">AIで作業が3時間になる点</div><div class="survey-opt">ストック型の収入モデル</div><div class="survey-opt">実績1億円の講師から学べる点</div><div class="survey-opt">案件獲得までサポートしてくれる点</div></div>
+    <div class="survey-card"><div class="survey-q">Q4. 無料セミナーに参加したいですか？</div><div class="survey-opt active">はい、参加したい！</div><div class="survey-opt">もう少し詳しく知りたい</div></div>
+    <div class="cta-area" style="padding:16px 0 0;"><a href="#" class="cta-btn"><span class="line-icon">L</span>LINE追加で特典をゲットする</a></div>
+  </section>
+
+  <!-- ===== FLOW ===== -->
+  <section class="sec bg-light">
+    <div class="sec-label">FLOW</div>
+    <div class="sec-title">参加までの流れ</div>
+    <div class="flow-card"><div class="flow-no">1</div><div><h4>LINEに登録（30秒）</h4><p>ボタンをタップしてLINE友だち追加するだけ</p></div></div>
+    <div class="flow-card"><div class="flow-no">2</div><div><h4>7大特典を受け取る</h4><p>登録直後に全特典が届きます</p></div></div>
+    <div class="flow-card"><div class="flow-no">3</div><div><h4>無料セミナーに参加</h4><p>LINE運用 x AIの具体的なノウハウを公開</p></div></div>
+    <div class="flow-card"><div class="flow-no green">4</div><div><h4>スクールに申し込み（希望者のみ）</h4><p>無理な勧誘は一切ありません</p></div></div>
+  </section>
+
+  <!-- ===== GUARANTEE ===== -->
+  <section class="sec">
+    <div class="guarantee">
+      <div class="pre">安心の</div>
+      <h3>全額返金保証</h3>
+      <div class="desc">カリキュラム通りに実践して<br>成果が出なかった場合、全額返金いたします。<br><strong>あなたにリスクは一切ありません。</strong></div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="sec bg-light">
+    <div class="sec-label">FAQ</div>
+    <div class="sec-title">よくある質問</div>
+    <div class="faq-item"><div class="faq-q">完全未経験でも稼げるようになりますか？</div><div class="faq-a">はい。AIがあなたの「スキル不足」をカバーします。受講生の85%が完全未経験からスタートし、3ヶ月以内に初案件を獲得しています。</div></div>
+    <div class="faq-item"><div class="faq-q">本当に1日3時間で月30万稼げるんですか？</div><div class="faq-a">はい。AIテンプレートを使えば1社あたりの月間作業は約3時間。3社獲得で月30万・月9時間です。実際に受講生が実現しています。</div></div>
+    <div class="faq-item"><div class="faq-q">副業でもできますか？</div><div class="faq-a">もちろんです。受講生の約6割が会社員の副業スタートです。AIで作業効率化できるので、平日夜や週末の数時間で十分対応できます。</div></div>
+    <div class="faq-item"><div class="faq-q">案件はどうやって取るんですか？</div><div class="faq-a">提案書テンプレート、営業トークスクリプト、案件獲得の具体的な手法をカリキュラムに含めています。求人サイトには時給5,000円以上の案件が多数あります。</div></div>
+    <div class="faq-item"><div class="faq-q">他のスクールとの違いは？</div><div class="faq-a">「AI x LINE x 案件獲得」の3つを全てカバーしているのは当スクールだけです。さらに講師はLINEで1億円以上の実績がある現役プレイヤーです。</div></div>
+    <div class="faq-item"><div class="faq-q">途中で辞めたくなったら？</div><div class="faq-a">全額返金保証がございます。カリキュラム通りに実践して成果が出なかった場合、全額お返しします。</div></div>
+  </section>
+
+  <!-- ===== FINAL CTA ===== -->
+  <section class="final-cta">
+    <div style="text-align:center; margin-bottom:24px;">
+      <p style="font-size:20px; font-weight:900; line-height:1.8;">3ヶ月後、あなたは<br><span style="color:#16A34A; font-size:22px;">毎月30万円が<br>自動で振り込まれる生活</span>を<br>手に入れている。</p>
+    </div>
+    <div class="img-ph" style="height:160px; background:linear-gradient(135deg,#BBF7D0,#86EFAC); color:#166534;"><span class="ico">&#x1F3D6;</span><span>理想のライフスタイル</span></div>
+    <p class="body center" style="line-height:2.2; padding:20px 0;">通勤もない。上司もいない。<br>好きな場所で、好きな時間に。<br><strong>AIとLINEだけで、<br>月30万のストック収入。</strong></p>
+    <p class="body center" style="font-size:15px;">必要なのは「才能」じゃない。<br><span class="hl">「正しい方法」と「最初の一歩」</span>だけです。</p>
+    <div class="urgency" style="margin-top:24px;">
+      <h3>毎月先着30名様限定</h3>
+      <p>少人数制のため、定員に達し次第締め切ります。<br><strong>次回の募集は未定です。</strong></p>
+    </div>
+    <div class="risk-text">全額返金保証あり / 無料セミナーだけでもOK / 7大特典つき</div>
+    <div class="cta-area" style="padding:0;"><a href="#" class="cta-btn" style="font-size:16px; padding:20px 24px;"><span class="line-icon">L</span>LINE追加で特典をゲットする</a><p class="cta-note">LINE追加するだけ / 無料 / 30秒で完了</p></div>
+    <div class="ps" style="margin-top:24px;">
+      <h4>追伸:</h4>
+      <p>ここまで読んでくれたあなたは、本気で人生を変えたいと思っているはず。LINE運用市場は今、需要が爆発しているのに人材が足りていない。このチャンスは長くは続きません。<br><br>半年後、「あの時やっておけばよかった...」と後悔するか。「あの時一歩踏み出して本当によかった」と笑っているか。<br><br><strong>その違いは、今日のたった1タップです。</strong></p>
+    </div>
+  </section>
+
+  <div class="footer">&copy; 2026 エルマーケ All rights reserved.</div>
+  <div class="spacer"></div>
+</div>
+
+<script>
+(function(){
+  const el=document.getElementById('timer');
+  let t=23*3600+59*60+48;
+  setInterval(()=>{if(t<=0)return;t--;const h=String(Math.floor(t/3600)).padStart(2,'0');const m=String(Math.floor((t%3600)/60)).padStart(2,'0');const s=String(t%60).padStart(2,'0');el.textContent=h+':'+m+':'+s;},1000);
+})();
+document.querySelectorAll('.survey-opt').forEach(o=>{o.addEventListener('click',function(){this.parentElement.querySelectorAll('.survey-opt').forEach(s=>s.classList.remove('active'));this.classList.add('active');});});
+</script>
+</body>
+</html>
